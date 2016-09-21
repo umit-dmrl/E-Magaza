@@ -12,6 +12,7 @@
           <EntitySet Name="makaleler" EntityType="cinemaModel.Store.makaleler" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="mesajlar" EntityType="cinemaModel.Store.mesajlar" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="resimler" EntityType="cinemaModel.Store.resimler" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SliderResimleri" EntityType="cinemaModel.Store.SliderResimleri" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="urunler" EntityType="cinemaModel.Store.urunler" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="uyeler" EntityType="cinemaModel.Store.uyeler" store:Type="Tables" Schema="dbo" />
         </EntityContainer>
@@ -72,6 +73,13 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="resim" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="SliderResimleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="resimler" Type="text" />
+        </EntityType>
         <EntityType Name="urunler">
           <Key>
             <PropertyRef Name="id" />
@@ -111,6 +119,7 @@
           <EntitySet Name="urunler" EntityType="cinemaModel.urunler" />
           <EntitySet Name="resimler" EntityType="cinemaModel.resimler" />
           <EntitySet Name="HomeLayoutModule" EntityType="cinemaModel.HomeLayoutModule" />
+          <EntitySet Name="SliderResimleri" EntityType="cinemaModel.SliderResimleri" />
         </EntityContainer>
         <EntityType Name="kategoriler">
           <Key>
@@ -194,6 +203,13 @@
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="modul_adi" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="sira" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="SliderResimleri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="resimler" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -288,6 +304,14 @@
               <MappingFragment StoreEntitySet="HomeLayoutModule">
                 <ScalarProperty Name="sira" ColumnName="sira" />
                 <ScalarProperty Name="modul_adi" ColumnName="modul_adi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SliderResimleri">
+            <EntityTypeMapping TypeName="cinemaModel.SliderResimleri">
+              <MappingFragment StoreEntitySet="SliderResimleri">
+                <ScalarProperty Name="resimler" ColumnName="resimler" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

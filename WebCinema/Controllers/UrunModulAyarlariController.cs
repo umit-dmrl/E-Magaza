@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebCinema.ViewModel;
+using WebCinema.Models;
 
 namespace WebCinema.Controllers
 {
@@ -12,7 +13,7 @@ namespace WebCinema.Controllers
     {
         //
         // GET: /Slider Modülü & Sizin İçin Seçtiklerimiz & Otomatik Popup/
-
+        cinemaDB db = new cinemaDB();
         public ActionResult Index(string state)
         {
             ViewBag.State = state;
@@ -45,6 +46,20 @@ namespace WebCinema.Controllers
             {
                 Response.Redirect("~/UrunModulAyarlari/?state=success");
             }
+        }
+
+        [HttpPost]
+        public void SliderImagesUpdate(FormCollection form)
+        {
+            string resimler = "";
+            foreach (var item in form["select_image"])
+            {
+                resimler += item.ToString();
+            }
+            SliderResimleri slider = db.SliderResimleri.FirstOrDefault(m => m.id == 1);
+            slider.resimler = resimler;
+            db.SaveChanges();
+            Response.Redirect("~/UrunModulAyarlari/?state=success");
         }
 
     }

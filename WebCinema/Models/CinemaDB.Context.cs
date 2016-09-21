@@ -33,5 +33,6 @@ namespace WebCinema.Models
         public DbSet<urunler> urunler { get; set; }
         public DbSet<resimler> resimler { get; set; }
         public DbSet<HomeLayoutModule> HomeLayoutModule { get; set; }
+        public DbSet<SliderResimleri> SliderResimleri { get; set; }
     }
 }

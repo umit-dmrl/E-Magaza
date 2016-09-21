@@ -178,6 +178,9 @@
     <Compile Include="Models\resimler.cs">
       <DependentUpon>CinemaDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SliderResimleri.cs">
+      <DependentUpon>CinemaDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\urunler.cs">
       <DependentUpon>CinemaDB.tt</DependentUpon>
     </Compile>

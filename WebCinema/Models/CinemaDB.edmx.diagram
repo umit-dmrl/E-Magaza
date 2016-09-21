@@ -13,6 +13,7 @@
         <EntityTypeShape EntityType="cinemaModel.urunler" Width="1.5" PointX="8.75" PointY="0.625" />
         <EntityTypeShape EntityType="cinemaModel.resimler" Width="1.5" PointX="0.5" PointY="2.625" />
         <EntityTypeShape EntityType="cinemaModel.HomeLayoutModule" Width="1.5" PointX="2.125" PointY="3" />
+        <EntityTypeShape EntityType="cinemaModel.SliderResimleri" Width="1.5" PointX="4" PointY="3.125" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
