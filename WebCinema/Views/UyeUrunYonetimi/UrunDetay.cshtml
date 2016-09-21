@@ -1,0 +1,190 @@
+﻿@model WebCinema.ViewModel.UrunEkleViewModel
+@using WebCinema.Models;
+@{
+    ViewBag.Title = "Ürün Detay Sayfası";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<style type="text/css">
+    .multi-upload-images {
+        display:block;
+        padding:10px;
+        border:1px solid #ccc;
+        background-color:#f4f4f4;
+        overflow:hidden;
+    }
+    .multi-upload-images img {
+            width:70px;
+            height:70px;
+    }
+    .multi-upload-images label{
+        display:block;
+        float:left;
+        margin-right:5px;
+        margin-bottom:5px;
+    }
+    .multi-upload-images .multi-image-select{
+        display:block;
+        overflow:hidden;
+        border:1px solid #ccc;
+        background-color:#fcd6d6;
+        padding:5px;
+        height:100px;
+        overflow-y:scroll;
+    }
+        .multi-upload-images .multi-image-select img{
+            width:70px;
+            height:70px;
+        }
+    .multi-upload-images .multi-image-select label {
+        display:block;
+        float:left;
+        margin-left:5px;
+        margin-bottom:5px;
+    }
+    .ana_resim_sec {
+        display:block;
+        height:100px;
+        overflow:hidden;
+        overflow-y:scroll;
+        border:1px solid #ccc;
+        background-color:#f4f4f4;
+        padding:10px;
+        margin-top:5px;
+    }
+    .ana_resim_sec img{
+        width:70px;
+        height:70px;
+    }
+    .ana_resim_sec label{
+        display:block;
+        float:left;
+        margin-right:5px;
+        margin-bottom:5px;
+    }
+</style>
+
+@{
+    string id = "";
+    string UrunAdi = "";
+    string UrunKodu = "";
+    string KategoriID="";
+    string UrunStokAdeti = "";
+    string UrunFiyati = "";
+    string UrunAciklamasi = "";
+    string UrunResmi = "";
+    string UrunResimleri = "";
+    string UrunEtiketleri = "";
+    bool UrunOnayi=false; 
+    foreach(urunler val in ViewBag.Urunler)
+    {
+        id = val.id.ToString();
+        UrunAdi = val.UrunAdi;
+        UrunKodu = val.UrunKodu;
+        KategoriID = val.UrunKategoriID;
+        UrunStokAdeti = val.UrunStokAdeti;
+        UrunFiyati = val.UrunFiyati;
+        UrunAciklamasi = val.UrunAciklamasi;
+        UrunResmi = val.UrunResmi;
+        UrunResimleri = val.UrunResimleri;
+        UrunEtiketleri = val.UrunEtiketleri;
+        if(val.UrunOnayi=="1")
+        {
+            UrunOnayi = true;   
+        }else{
+            UrunOnayi = false;   
+        }
+    }
+    Model.UrunAciklamasi = UrunAciklamasi;
+    Model.UrunEtiketleri = UrunEtiketleri;
+    Model.UrunOnayi = UrunOnayi;
+}
+
+@using (Html.BeginForm("UrunGuncelle", "UyeUrunYonetimi", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="hidden" name="ProductID" value="@id" />
+    
+    @Html.LabelFor(m=>m.UrunKodu)
+    @Html.TextBoxFor(m => m.UrunKodu, new { @Value=UrunKodu })
+
+    @Html.LabelFor(m=>m.UrunAdi)
+    @Html.TextBoxFor(m=>m.UrunAdi, new { @Value=UrunAdi })
+    @Html.ValidationMessageFor(m=>m.UrunAdi)
+
+    <label>Kategori Seçiniz</label>
+    <select name="Kategori" id="Kategori">
+    @for (int i = 0; i < Model.KategoriListesi.Count(); i++)
+    {
+        if (Model.KategoriListesi[i].Value == KategoriID)
+        {
+            <option value="@Model.KategoriListesi[i].Value" selected="selected">@Model.KategoriListesi[i].Text</option>
+        }else{
+            <option value="@Model.KategoriListesi[i].Value">@Model.KategoriListesi[i].Text</option>
+        }
+    }
+    </select>
+    
+    @Html.LabelFor(m=>m.UrunStokAdeti)
+    @Html.TextBoxFor(m => m.UrunStokAdeti, new { type="number",@Value=UrunStokAdeti })
+
+    @Html.LabelFor(m=>m.UrunFiyati)
+    @Html.TextBoxFor(m=>m.UrunFiyati, new { type="number",@Value=UrunFiyati })
+    @Html.ValidationMessageFor(m=>m.UrunFiyati)
+
+    @Html.LabelFor(m=>m.UrunAciklamasi)
+    @Html.TextAreaFor(m=>m.UrunAciklamasi)
+
+    <label>Ürün Resmi</label>
+    <br />
+    if (UrunResmi == "default")
+    {
+        <img src="~/Uploads/Products/default.png" width="70" height="70" />
+        <input type="hidden" name="mevcut_ana_resim" value="default" />
+    }
+    else
+    {
+        <img src="~/Uploads/Products/@UrunResmi" width="70" height="70" />
+        <input type="hidden" name="mevcut_ana_resim" value="@UrunResmi" />
+    }
+    <div class="ana_resim_sec">
+        @for (int i = 0; i < Model.ResimSecimi.Count(); i++)
+	    {
+			 <label><input type="radio" name="yeni_ana_resim" value="@Model.ResimSecimi[i].Text" /> <img src="~/Uploads/Products/@Model.ResimSecimi[i].Text" width="70" height="70" /></label>
+		}
+    </div>
+    <br /><br />
+    <div class="multi-upload-images">
+       @{
+            string[] secilen_resimler = UrunResimleri.Split(',');
+            if (secilen_resimler.Length > 0)
+            {
+                for (int i = 0; i < secilen_resimler.Length - 1; i++)
+                {
+                    <label><input type="checkbox" checked="checked" name="resimler" value="@secilen_resimler[i].ToString()" /> <img src="~/Uploads/Products/@secilen_resimler[i].ToString()" width="70" height="70" /></label>
+                }
+            }
+       }
+        <div style="clear:both;"></div>
+        <div class="multi-image-select">
+            @for (int i = 0; i < Model.ResimSecimi.Count(); i++)
+			{
+			     <label><input type="checkbox" name="yeni_secilen_coklu_resimler" value="@Model.ResimSecimi[i].Text" /> <img src="~/Uploads/Products/@Model.ResimSecimi[i].Text" width="70" height="70" /></label>
+			}
+        </div>
+    </div>
+    <br /><br />
+    @Html.LabelFor(m=>m.UrunEtiketleri)
+    @Html.TextBoxFor(m=>m.UrunEtiketleri)
+    @Html.ValidationMessageFor(m=>m.UrunEtiketleri)
+
+
+    if (UrunOnayi == true)
+    {
+        <label><input type="checkbox" name="UrunOnayi" checked="checked" /> Ürün Onayı</label>
+    }else{
+        <input type="checkbox" name="UrunOnayi" /><label>Test</label>   
+    }
+
+    <br /><br />
+    <input type="submit" value="Kaydet" class="btn btn-primary" />
+}

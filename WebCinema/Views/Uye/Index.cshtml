@@ -1,0 +1,26 @@
+﻿@using WebCinema.Models;
+@{
+    ViewBag.Title = "Profil Bilgilerim";
+}
+
+
+@{
+    string resim = "";
+    string eposta = "";
+    string adsoyad = "";
+    
+    foreach(uyeler val in ViewBag.Profil)
+    {
+        resim = val.resim;
+        eposta = val.eposta;
+        adsoyad = val.adsoyad;
+    }
+}
+<h3><font color="brown">Hoşgeldin @adsoyad.ToString().Trim()</font></h3>
+<div class="profil_content">
+    <div class="resim"><img src="~/Uploads/Profils/@resim.ToString().Trim()" width="100" /></div>
+    <div class="bilgiler">
+        @adsoyad.ToString().Trim()<br />
+        @eposta.ToString().Trim()<br />
+    </div>
+</div>

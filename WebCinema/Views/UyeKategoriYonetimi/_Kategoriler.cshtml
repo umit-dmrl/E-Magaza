@@ -1,0 +1,33 @@
+﻿@model WebCinema.ViewModel.KategoriModel
+@using PagedList;
+@using PagedList.Mvc;
+
+<style type="text/css">
+    .list-item {
+        display:block;
+        padding:5px;
+        border-bottom:1px solid #ccc;
+        background-color:#f4f4f4;
+    }
+</style>
+
+@foreach (var cust in Model.Kategoriler)
+{
+    <div class="list-item">
+        @cust.kategoriAdi<br />
+        Durum : 
+        @if (cust.onay == "1")
+        {
+            <span style="color:green;">Aktif</span>
+        }else{
+            <span style="color:orange;">Pasif</span>   
+        }
+        <br />
+        
+        <a href="~/UyeKategoriYonetimi/KategoriDuzenle/?kategoriID=@cust.kategoriID">Düzenle</a> | <a href="~/UyeKategoriYonetimi/KategoriSil/?kategoriID=@cust.kategoriID">Sil</a>
+    </div>
+}
+@Html.PagedListPager(Model.Kategoriler, page => Url.Action("Index", new RouteValueDictionary {
+    {"Page",page},
+    {"kategoriAdi",Model.kategoriAdi}
+}), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId="kategoriler" }))

@@ -1,0 +1,21 @@
+﻿@model WebCinema.ViewModel.LoginViewModel
+@{
+    ViewBag.Title = "Giriş Yap";
+}
+<h3><font color="brown">Giriş Yap</font></h3>
+@if (Model.mesaj != null)
+{
+    <div class="alert alert-error">@Model.mesaj</div>
+}
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    @Html.LabelFor(m=>m.eposta)
+    @Html.TextBoxFor(m=>m.eposta)<br />
+    @Html.ValidationMessageFor(m=>m.eposta)
+    <br />
+    @Html.LabelFor(m=>m.parola)
+    @Html.TextBoxFor(m => m.parola, new { type="password" })<br />
+    @Html.ValidationMessageFor(m=>m.parola)
+    <br />
+    <input type="submit" value="Giriş Yap" class="btn btn-primary" />
+}

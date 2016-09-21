@@ -1,0 +1,42 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using WebCinema.Models
+@model IPagedList<resimler>
+
+<style type="text/css">
+    .image-item {
+        display:block;
+        float:left;
+        width:100px;
+        height:130px;
+        padding:5px;
+        border:1px solid #ccc;
+        box-shadow:3px 3px 3px #ccc;
+        margin-bottom:10px;
+        margin-right:10px;
+    }
+    .image-item img{
+        display:block;
+        width:100px;
+        height:100px;
+        margin-bottom:5px;
+    }
+    .image-item a {
+        font-size:12px;
+        padding:5px;
+        background-color:#ccc;
+        margin:2px;
+        border-radius:5px;
+    }
+</style>
+
+@foreach (var resimler in Model)
+{
+        <div class="image-item">
+            <img src="~/Uploads/Products/@resimler.resim.ToString()" />
+            <a href="~/Uploads/Products/@resimler.resim.ToString()" target="_blank">Tam Ekran</a> 
+            <a href="~/UyeResimYonetimi/ImageDelete/?ImageID=@resimler.id.ToString()" style="background-color:maroon;color:white;">Sil</a>
+        </div>
+}
+<div style="clear:both;"></div>
+@Html.PagedListPager(Model, _sayfaNo => Url.Action("Index", "UyeResimYonetimi", new { SayfaNo = _sayfaNo }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "resimler" }))

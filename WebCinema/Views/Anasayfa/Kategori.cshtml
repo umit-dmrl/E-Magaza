@@ -1,0 +1,27 @@
+﻿@using WebCinema.Models;
+@{
+    string title = "";
+    string icerik = "";
+    string etiket = "";
+    foreach (makaleler val in ViewBag.Makale)
+    {
+        title = val.baslik;
+        icerik = val.icerik;
+        etiket = val.anahtarKelimeler;
+    }
+}
+@{
+    ViewBag.Title = title;
+}
+<h3 style="color:brown;">@title</h3>
+@icerik
+<br />
+<div class="etiketler">
+@{
+    string[] degerler = etiket.Split(',');
+    for(int i=0;i<degerler.Length;i++)
+    {
+        <span>@degerler[i].ToString()</span>;
+    }
+}
+</div>

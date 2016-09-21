@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "Yönetim Paneli";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@if (Session["user_admin"] == null || Session["user_admin"] == "")
+{
+    Response.Redirect("~/Admin");
+}
+<h3 style="color:#5e8cb0;">Yönetim Paneli</h3>

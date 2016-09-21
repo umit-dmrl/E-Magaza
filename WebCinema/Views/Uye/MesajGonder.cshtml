@@ -1,0 +1,39 @@
+﻿@model WebCinema.ViewModel.MesajViewModel
+@{
+    ViewBag.Title = "Mesaj Gönder";
+}
+<style type="text/css">
+    .mesaj {
+        display:block;
+        min-width:100%;
+        max-width:100%;
+        min-height:150px;
+        max-height:150px;
+    }
+</style>
+<h3 style="color:brown;">Mesaj Gönder</h3>
+<br />
+@if (ViewBag.State == "error")
+{
+    <div class="alert alert-error">
+    <strong>Hata!</strong> Mesajınız Gönderilemedi.
+    </div>
+}
+else if (ViewBag.State == "success")
+{
+    <div class="alert alert-success">
+    <strong>Başarılı!</strong> Mesajınız Tarafımıza Ulaşmıştır.
+    </div>
+}
+@using (Html.BeginForm("MesajGonder", "Uye", FormMethod.Post))
+{
+    @Html.LabelFor(m=>m.konu)
+    @Html.TextBoxFor(m=>m.konu)<br />
+    @Html.ValidationMessageFor(m=>m.konu)<br />
+
+    @Html.LabelFor(m=>m.mesaj)
+    @Html.TextAreaFor(m => m.mesaj, new { @Class="mesaj" })<br />
+    @Html.ValidationMessageFor(m=>m.mesaj)<br />
+    
+    <input type="submit" value="Gönder" class="btn btn-default" />
+}

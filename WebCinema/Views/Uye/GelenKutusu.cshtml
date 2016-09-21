@@ -1,0 +1,49 @@
+﻿@using WebCinema.Models;
+@{
+    ViewBag.Title = "Gelen Kutusu";
+}
+<style type="text/css">
+    .message_table {
+        width:100%;
+        border:1px solid #ccc;
+    }
+    .message_table a{
+        color:black;
+
+    }
+</style>
+<h3 style="color:brown;">Gelen Kutusu</h3>
+@if (ViewBag.State == "error")
+{
+    <div class="alert alert-error">
+    <strong>Hata !</strong> İşlem Bir Hata Nedeniyle Başarısız Oldu...
+    </div>
+}
+else if (ViewBag.State == "success")
+{
+    <div class="alert alert-success">
+    <strong>İşlem Başarılı!</strong> İşleminiz Başarıyla Tamamlandı...
+    </div>
+}
+else if (ViewBag.State == "kayit_yok")
+{
+    <div class="alert alert-error">
+    <strong>Mesaj Bulunamadı !</strong> Gönderilen İstek Sonucu Mesaj Bulunamadı...
+    </div>
+}
+<table class="message_table">
+@foreach (cevaplar val in ViewBag.GelenMesajlar)
+{
+    <tr bgcolor="#f4f4f4" style="border-bottom:1px solid #ccc;">
+    <td width="70%" style="padding:5px;">
+        @if (val.okunma == "0")
+        {
+            <a style="color:brown;" href="~/Uye/MesajOku/?id=@val.mesajID">@val.konu</a>
+        }else{
+            <a href="~/Uye/MesajOku/?id=@val.mesajID">@val.konu</a>
+        }
+    </td>
+    <td width="30%" align="center" style="padding:5px; font-size:12px">@val.tarih</td>
+    </tr>
+}
+</table>

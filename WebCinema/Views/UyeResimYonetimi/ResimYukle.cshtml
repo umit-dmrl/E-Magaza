@@ -1,0 +1,24 @@
+﻿@model WebCinema.ViewModel.ResimYukleViewModel
+@{
+    ViewBag.Title = "Resim Yükle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h3>Resim Yükle</h3>
+@if (ViewBag.State == "success")
+{
+    <div class="alert alert-success">Resimleriniz Yüklendi...</div>
+}else if (ViewBag.State == "error")
+{
+    <div class="alert alert-success">Resimlerden Bazıları Veya Tümü Yüklenirken Hata Oldu!</div>
+    <div class="alert alert-info"><span>Yüklenmeyen Öğeler : </span>@ViewBag.Yuklenmeyenler</div>
+}
+<br />
+@using (Html.BeginForm("ResimYukle", "UyeResimYonetimi", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.LabelFor(m => m.resimler)
+    @Html.TextBoxFor(m => m.resimler, new { type="file" , multiple="multiple"})<br />
+    @Html.ValidationMessageFor(m => m.resimler)
+    <br />
+    <input type="submit" value="Yükle" class="btn btn-primary" />
+}

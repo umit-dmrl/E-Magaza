@@ -1,0 +1,49 @@
+﻿@model WebCinema.ViewModel.KayitFormuView
+@{
+    ViewBag.Title = "Kayıt Ol";
+}
+<br />
+@if (ViewBag.State == "format_error")
+{
+    <div class="alert alert-error">
+    <strong>Format Hatası!</strong> Resim Uygun Formatta Değil. Lütfen (png/jpg/jpeg/gif) formatında bir resim seçiniz.
+    </div>
+}
+else if (ViewBag.State == "success")
+{
+    <div class="alert alert-success">
+    <strong>Kayıt Başarılı!</strong> Sisteme Kaydınız Başarıyla Yapıldı. Şimdi Giriş Yapabilirsiniz...
+    </div>
+}
+else if (ViewBag.State == "kayitli_eposta")
+{
+    <div class="alert alert-error">
+    <strong>Kayıt Var !</strong> Kayıt Olmak İstediğiniz E-Posta Adresi Sistemde Var !
+    </div>
+}
+
+<h3><font color="brown">Kayıt Formu</font></h3>
+@using (Html.BeginForm("KayitOl","Anasayfa",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.LabelFor(m=>m.adsoyad)
+    @Html.TextBoxFor(m=>m.adsoyad)
+    @Html.ValidationMessageFor(m=>m.adsoyad)<br />
+    
+    @Html.LabelFor(m=>m.eposta)
+    @Html.TextBoxFor(m=>m.eposta)
+    @Html.ValidationMessageFor(m=>m.eposta)<br />
+    
+    @Html.LabelFor(m=>m.parola)
+    @Html.PasswordFor(m=>m.parola)
+    @Html.ValidationMessageFor(m=>m.parola)<br />
+    
+    @Html.LabelFor(m=>m.parola_tekrar)
+    @Html.PasswordFor(m=>m.parola_tekrar)
+    @Html.ValidationMessageFor(m=>m.parola_tekrar)<br />
+    
+    @Html.LabelFor(m=>m.ImageUpload)
+    @Html.TextBoxFor(m => m.ImageUpload, new { type="file",accept="image/*" })<br />
+    
+    
+    <input type="submit" value="Gönder" class="btn btn-primary" />
+}

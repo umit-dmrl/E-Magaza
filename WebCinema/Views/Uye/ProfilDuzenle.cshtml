@@ -1,0 +1,69 @@
+﻿@model WebCinema.ViewModel.KayitFormuView
+@using WebCinema.Models;
+@{
+    ViewBag.Title = "Profil Bilgilerinizi Güncelleyin";
+}
+@{
+    string resim = "";
+    string eposta = "";
+    string parola = "";
+    string adsoyad = "";
+    
+    foreach(uyeler val in ViewBag.Profil)
+    {
+        resim = val.resim;
+        eposta = val.eposta;
+        parola = val.parola;
+        adsoyad = val.adsoyad;
+    }
+}
+<h3 style="color:brown;">Profil Bilgilerinizi Güncelleyin</h3>
+<br />
+@if (ViewBag.State == "format_error")
+{
+    <div class="alert alert-error">
+    <strong>Format Hatası!</strong> Resim Uygun Formatta Değil. Lütfen (png/jpg/jpeg/gif) formatında bir resim seçiniz.
+    </div>
+}
+else if (ViewBag.State == "success")
+{
+    <div class="alert alert-success">
+    <strong>Güncelleme Başarılı!</strong> Bilgileriniz Başarıyla Güncellendi...
+    </div>
+}
+else if (ViewBag.State == "kayitli_eposta")
+{
+    <div class="alert alert-error">
+    <strong>Kayıt Var !</strong> Kayıt Olmak İstediğiniz E-Posta Adresi Sistemde Var !
+    </div>
+}
+<div class="profil_content">
+    <div class="resim"><img src="~/Uploads/Profils/@resim.ToString().Trim()" width="100" /></div>
+    <div class="bilgiler">
+@using (Html.BeginForm("ProfilDuzenle","Uye",FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.LabelFor(m=>m.adsoyad)
+    @Html.TextBoxFor(m => m.adsoyad, new { @Value=adsoyad.ToString().Trim() })
+    @Html.ValidationMessageFor(m=>m.adsoyad)<br />
+    
+    @Html.LabelFor(m=>m.eposta)
+    @Html.TextBoxFor(m=>m.eposta,new { @Value=eposta.ToString().Trim() })
+    @Html.ValidationMessageFor(m=>m.eposta)<br />
+    
+    @Html.LabelFor(m=>m.parola)
+    @Html.PasswordFor(m=>m.parola,new { @Value=parola.ToString().Trim() })
+    @Html.ValidationMessageFor(m=>m.parola)<br />
+    
+    @Html.LabelFor(m=>m.parola_tekrar)
+    @Html.PasswordFor(m=>m.parola_tekrar,new { @Value=parola.ToString().Trim() })
+    @Html.ValidationMessageFor(m=>m.parola_tekrar)<br />
+    
+    @Html.LabelFor(m=>m.ImageUpload)
+    @Html.TextBoxFor(m => m.ImageUpload, new { type="file",accept="image/*" })<br />
+    
+    
+    <input type="submit" value="Güncelle" class="btn btn-primary" />
+}
+
+    </div>
+</div>

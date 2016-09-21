@@ -1,0 +1,56 @@
+﻿@model WebCinema.ViewModel.KategoriModel
+@{
+    ViewBag.Title = "Kategori Listesi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+@if (ViewBag.KayitBulunamadi == "KayitBulunamadi")
+{
+    <div class="alert alert-error">
+        Aradığınız Kayıt Bulunamadı!
+    </div>
+}
+@if (ViewBag.GuncellemeBasarili == "GuncellemeBasarili")
+ {
+    <div class="alert alert-success">
+        Güncelleme İşlemi Başarıyla Yapıldı...
+    </div>
+ }
+@if (ViewBag.GuncellemeBasarili == "KayitEklemeBasarili")
+ {
+    <div class="alert alert-success">
+        Yeni Kategori Eklendi...
+    </div>
+ }
+@if (ViewBag.State != null)
+{
+    if (ViewBag.State == "success")
+    {
+        <div class="alert alert-success">İşlem Başarıyla Tamamlandı...</div>
+    }else if (ViewBag.State == "error")
+    {
+        <div class="alert alert-error">İşlem Başarısız Oldu!</div>
+    }
+    else if (ViewBag.State == "kategori_yok")
+    {
+        <div class="alert alert-error">İşlem Yapılacak Kategori Bulunamadı!</div>
+    }
+}
+<br />
+@using (Ajax.BeginForm("Index", "UyeKategoriYonetimi", FormMethod.Post, new AjaxOptions { OnSuccess = "filtrele" }))
+{
+    <span>Kategori Adı : </span>
+    @Html.TextBoxFor(m => m.kategoriAdi)
+    <input type="submit" value="Filtrele" class="btn btn-secondary" />
+}
+<br />
+<div id="kategoriler">
+    @Html.Partial("_Kategoriler", @Model)
+</div>
+@section scripts{
+    <script type="text/javascript">
+        function filtrele(result) {
+            $("#kategoriler").html(result);
+        }
+    </script>
+}

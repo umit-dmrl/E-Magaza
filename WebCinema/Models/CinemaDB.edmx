@@ -1,0 +1,317 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="cinemaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="cinemaModelStoreContainer">
+          <EntitySet Name="cevaplar" EntityType="cinemaModel.Store.cevaplar" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="HomeLayoutModule" EntityType="cinemaModel.Store.HomeLayoutModule" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="kategoriler" EntityType="cinemaModel.Store.kategoriler" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="makaleler" EntityType="cinemaModel.Store.makaleler" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="mesajlar" EntityType="cinemaModel.Store.mesajlar" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="resimler" EntityType="cinemaModel.Store.resimler" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="urunler" EntityType="cinemaModel.Store.urunler" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="uyeler" EntityType="cinemaModel.Store.uyeler" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="cevaplar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="mesajID" Type="nvarchar" MaxLength="11" />
+          <Property Name="kime" Type="nvarchar" MaxLength="150" />
+          <Property Name="konu" Type="nvarchar" MaxLength="150" />
+          <Property Name="cevap" Type="text" />
+          <Property Name="tarih" Type="nvarchar" MaxLength="20" />
+          <Property Name="okunma" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="HomeLayoutModule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="modul_adi" Type="nvarchar" MaxLength="50" />
+          <Property Name="sira" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="kategoriler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriAdi" Type="nvarchar" Nullable="false" MaxLength="50" />
+          <Property Name="onay" Type="nvarchar" Nullable="false" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="makaleler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriID" Type="nvarchar" MaxLength="50" />
+          <Property Name="baslik" Type="nvarchar" MaxLength="50" />
+          <Property Name="icerik" Type="text" />
+          <Property Name="anahtarKelimeler" Type="text" />
+          <Property Name="onay" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="mesajlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="gonderen" Type="nvarchar" MaxLength="150" />
+          <Property Name="konu" Type="nvarchar" MaxLength="150" />
+          <Property Name="mesaj" Type="text" />
+          <Property Name="tarih" Type="nchar" MaxLength="20" />
+          <Property Name="okunma" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="resimler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="resim" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="urunler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UrunKategoriID" Type="nvarchar" MaxLength="12" />
+          <Property Name="UrunKodu" Type="nvarchar" MaxLength="50" />
+          <Property Name="UrunAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="UrunResmi" Type="nvarchar" MaxLength="50" />
+          <Property Name="UrunResimleri" Type="nvarchar" MaxLength="250" />
+          <Property Name="UrunAciklamasi" Type="text" />
+          <Property Name="UrunEtiketleri" Type="nvarchar" MaxLength="250" />
+          <Property Name="UrunFiyati" Type="nvarchar" MaxLength="50" />
+          <Property Name="UrunStokAdeti" Type="nvarchar" MaxLength="10" />
+          <Property Name="UrunOnayi" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="uyeler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="adsoyad" Type="nchar" MaxLength="50" />
+          <Property Name="eposta" Type="nchar" MaxLength="150" />
+          <Property Name="parola" Type="nvarchar" MaxLength="50" />
+          <Property Name="resim" Type="nchar" MaxLength="50" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cinemaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="cinemaDB" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="kategoriler" EntityType="cinemaModel.kategoriler" />
+          <EntitySet Name="makaleler" EntityType="cinemaModel.makaleler" />
+          <EntitySet Name="uyeler" EntityType="cinemaModel.uyeler" />
+          <EntitySet Name="mesajlar" EntityType="cinemaModel.mesajlar" />
+          <EntitySet Name="cevaplar" EntityType="cinemaModel.cevaplar" />
+          <EntitySet Name="urunler" EntityType="cinemaModel.urunler" />
+          <EntitySet Name="resimler" EntityType="cinemaModel.resimler" />
+          <EntitySet Name="HomeLayoutModule" EntityType="cinemaModel.HomeLayoutModule" />
+        </EntityContainer>
+        <EntityType Name="kategoriler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="kategoriAdi" Type="String" Nullable="false" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="onay" Type="String" Nullable="false" MaxLength="1" Unicode="true" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="makaleler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="kategoriID" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="icerik" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="anahtarKelimeler" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="onay" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="baslik" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="uyeler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="adsoyad" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="eposta" MaxLength="150" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="parola" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="resim" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="mesajlar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="gonderen" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="konu" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="mesaj" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="tarih" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="okunma" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="cevaplar">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="kime" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="konu" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="cevap" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="tarih" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="okunma" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="mesajID" MaxLength="11" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="urunler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="UrunKodu" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrunAdi" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrunResmi" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrunResimleri" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrunAciklamasi" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="UrunEtiketleri" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrunFiyati" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrunOnayi" MaxLength="1" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrunStokAdeti" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrunKategoriID" MaxLength="12" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="resimler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="resim" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="HomeLayoutModule">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="modul_adi" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="sira" MaxLength="2" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cinemaModelStoreContainer" CdmEntityContainer="cinemaDB">
+          <EntitySetMapping Name="kategoriler">
+            <EntityTypeMapping TypeName="cinemaModel.kategoriler">
+              <MappingFragment StoreEntitySet="kategoriler">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="kategoriAdi" ColumnName="kategoriAdi" />
+                <ScalarProperty Name="onay" ColumnName="onay" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="makaleler">
+            <EntityTypeMapping TypeName="cinemaModel.makaleler">
+              <MappingFragment StoreEntitySet="makaleler">
+                <ScalarProperty Name="baslik" ColumnName="baslik" />
+                <ScalarProperty Name="onay" ColumnName="onay" />
+                <ScalarProperty Name="anahtarKelimeler" ColumnName="anahtarKelimeler" />
+                <ScalarProperty Name="icerik" ColumnName="icerik" />
+                <ScalarProperty Name="kategoriID" ColumnName="kategoriID" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="uyeler">
+            <EntityTypeMapping TypeName="cinemaModel.uyeler">
+              <MappingFragment StoreEntitySet="uyeler">
+                <ScalarProperty Name="resim" ColumnName="resim" />
+                <ScalarProperty Name="parola" ColumnName="parola" />
+                <ScalarProperty Name="eposta" ColumnName="eposta" />
+                <ScalarProperty Name="adsoyad" ColumnName="adsoyad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="mesajlar">
+            <EntityTypeMapping TypeName="cinemaModel.mesajlar">
+              <MappingFragment StoreEntitySet="mesajlar">
+                <ScalarProperty Name="okunma" ColumnName="okunma" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="mesaj" ColumnName="mesaj" />
+                <ScalarProperty Name="konu" ColumnName="konu" />
+                <ScalarProperty Name="gonderen" ColumnName="gonderen" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cevaplar">
+            <EntityTypeMapping TypeName="cinemaModel.cevaplar">
+              <MappingFragment StoreEntitySet="cevaplar">
+                <ScalarProperty Name="mesajID" ColumnName="mesajID" />
+                <ScalarProperty Name="okunma" ColumnName="okunma" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="cevap" ColumnName="cevap" />
+                <ScalarProperty Name="konu" ColumnName="konu" />
+                <ScalarProperty Name="kime" ColumnName="kime" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="urunler">
+            <EntityTypeMapping TypeName="cinemaModel.urunler">
+              <MappingFragment StoreEntitySet="urunler">
+                <ScalarProperty Name="UrunKategoriID" ColumnName="UrunKategoriID" />
+                <ScalarProperty Name="UrunStokAdeti" ColumnName="UrunStokAdeti" />
+                <ScalarProperty Name="UrunOnayi" ColumnName="UrunOnayi" />
+                <ScalarProperty Name="UrunFiyati" ColumnName="UrunFiyati" />
+                <ScalarProperty Name="UrunEtiketleri" ColumnName="UrunEtiketleri" />
+                <ScalarProperty Name="UrunAciklamasi" ColumnName="UrunAciklamasi" />
+                <ScalarProperty Name="UrunResimleri" ColumnName="UrunResimleri" />
+                <ScalarProperty Name="UrunResmi" ColumnName="UrunResmi" />
+                <ScalarProperty Name="UrunAdi" ColumnName="UrunAdi" />
+                <ScalarProperty Name="UrunKodu" ColumnName="UrunKodu" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="resimler">
+            <EntityTypeMapping TypeName="cinemaModel.resimler">
+              <MappingFragment StoreEntitySet="resimler">
+                <ScalarProperty Name="resim" ColumnName="resim" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeLayoutModule">
+            <EntityTypeMapping TypeName="cinemaModel.HomeLayoutModule">
+              <MappingFragment StoreEntitySet="HomeLayoutModule">
+                <ScalarProperty Name="sira" ColumnName="sira" />
+                <ScalarProperty Name="modul_adi" ColumnName="modul_adi" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

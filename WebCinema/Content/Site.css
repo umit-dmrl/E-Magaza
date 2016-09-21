@@ -1,0 +1,214 @@
+﻿body {
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    color: #232323;
+    background-color: #f4f4f4;
+}
+
+header, footer, nav, section {
+    display: block;
+}
+
+
+/* Styles for basic forms
+-----------------------------------------------------------*/
+fieldset {
+    border: 1px solid #ddd;
+    padding: 0 1.4em 1.4em 1.4em;
+    margin: 0 0 1.5em 0;
+}
+
+legend {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+textarea {
+    min-height: 75px;
+}
+
+.editor-label {
+    margin: 1em 0 0 0;
+}
+
+.editor-field {
+    margin: 0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error {
+    color: #f00;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.input-validation-error {
+    border: 1px solid #f00;
+    background-color: #fee;
+}
+
+.validation-summary-errors {
+    font-weight: bold;
+    color: #f00;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+.header {
+    display:block;
+    border:1px solid #ccc;
+    background:url('images/header.jpg') no-repeat center top;
+    color:#232323;
+    font-size:22px;
+    font-family:Arial;
+    width:800px;
+    margin-top:30px; margin-bottom:10px;
+    margin-left:auto; margin-right:auto;
+    height:100px;
+}
+.header #slogan {
+    display:block;
+    float:left;
+    margin:10px;
+    color:#aed2ff;
+}
+.header #top_menu{
+    display:block;
+    float:right;
+    margin-right:10px;
+    margin-top:50px;
+}
+.header #top_menu a{
+    display:block;
+    float:left;
+    color:brown;
+    font-weight:bold;
+    font-size:12px;
+    margin-right:10px;
+    padding:5px;
+    border-radius:5px;
+    background-color:brown;
+    color:white;
+}
+.header #top_menu a:hover {
+    background-color:#ff8f64;
+    color:white;
+}
+.content {
+    display:block;
+    width:800px;
+    min-height:500px;
+    margin-left:auto; margin-right:auto;
+    border:1px solid #ccc;
+    background-color:white;
+}
+.content .left {
+    display:block;
+    width:200px;
+    float:left;
+}
+    .content .left #menu{
+        display:block;
+        width:170px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-left:auto; margin-right:auto;
+        border-top:3px solid orange;
+        border-radius:5px;
+        list-style-type:none;
+        padding:0px;
+    }
+    .content .left #left_title {
+        display:block;
+        width:170px;
+        margin-left:auto; margin-right:auto;
+        background-color:orange;
+        font-family:Arial;
+        font-weight:bold;
+        padding:5px;
+        text-align:center;
+        border-radius:5px;
+        color:white;
+        font-size:14px;
+        margin-top:10px;
+    }
+    .content .left #menu li {
+        display:block;
+        margin-bottom:3px;
+        border-bottom:1px dotted #ccc;
+    }
+    .content .left #menu a {
+        display:block;
+        padding:5px;
+        text-decoration:none;
+        color:brown;
+    }
+    .content .content-body {
+        display:block;
+        float:left;
+        width:500px;
+        margin-left:30px;
+    }
+    .content .clear {
+        clear:both;
+    }
+.etiketler {
+    display:block;
+    margin-top:10px;
+}
+.etiketler span{
+    display:block;
+    float:left;
+    background-color:#f4f4f4;
+    border:1px solid #ccc;
+    font-size:12px;
+    font-family:Arial;
+    padding:3px;
+    margin-right:3px;
+    cursor:pointer;
+    border-radius:5px;
+}
+.profil_content {
+    display:block;
+    width:100%;
+    min-height:200px;
+    overflow:hidden;
+}
+.profil_content .resim{
+    display:block;
+    float:left;
+    width:100px;
+    height:auto;
+    border:1px solid #ccc;
+    border-radius:5px;
+    padding:3px;
+    box-shadow:3px 3px 3px #ccc;
+}
+.profil_content .bilgiler{
+    display:block;
+    width:70%;
+    float:left;
+    margin-left:30px;
+}
+.success {
+    display:block;
+    padding:10px;
+    font:14px Arial;
+    background-color:#b5f792;
+    border:1px solid #61f237;
+    border-radius:5px;
+}
+.error {
+    display:block;
+    padding:10px;
+    font:14px Arial;
+    background-color:#f7caca;
+    border:1px solid #f21c1c;
+    border-radius:5px;
+}
+

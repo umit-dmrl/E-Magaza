@@ -1,0 +1,42 @@
+﻿@using WebCinema.Models;
+@model WebCinema.ViewModel.KategoriEkleViewModel
+@{
+    ViewBag.Title = "Kategori Düzenle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@if (ViewBag.KayitBulunamadi == "KayitBulunamadi")
+{
+    Response.Redirect("~/UyeKategoriYonetimi");
+}
+@{
+    string name = "";
+    string onay = "";
+    string ids="";
+    foreach (kategoriler val in ViewBag.Kategori)
+    {
+        name = val.kategoriAdi.Trim().ToString();
+        onay = val.onay;
+        ids = val.id.ToString();
+    }
+}
+@using (Html.BeginForm("KategoriDuzenle", "UyeKategoriYonetimi", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.id, new { @Value=@ids })
+
+    @Html.LabelFor(m=>m.kategoriAdi)
+    @Html.TextBoxFor(m => m.kategoriAdi, new { @Value=@name })
+    @Html.ValidationMessageFor(m=>m.kategoriAdi)
+    <br />
+    <label>Sitede Gösterilsin mi?</label>
+    <select name="onay">
+        @if(onay=="1"){
+            <option value="1">Aktif</option>
+        }else{
+            <option value="0">Pasif</option>
+        }
+        <option value="1">Aktif</option>
+        <option value="0">Pasif</option>
+    </select>
+    <br />
+    <input type="submit" value="Güncelle" class="btn btn-primary" />
+}

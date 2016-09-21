@@ -1,0 +1,47 @@
+﻿@model WebCinema.ViewModel.UrunAraViewModel
+@{
+    ViewBag.Title = "Ürün Listesi";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style type="text/css">
+    .urun_kodu {
+        width:60px;
+    }
+</style>
+<h3>Ürün Listesi</h3>
+@if (ViewBag.State != null)
+{
+    if (ViewBag.State == "urun_yok")
+    {
+        <div class="alert alert-error"><span>Uyarı!</span> Aradığınız Ürünle İlgili İşlem Yapılamıyor...</div>
+    }
+    else if (ViewBag.State == "islem_uygun_degil")
+    {
+        <div class="alert alert-error"><span>Hata!</span> Uygun Olmayan Bir İstek Gönderildi...</div>
+    }
+    else if (ViewBag.State == "success")
+    {
+        <div class="alert alert-success"><span>Başarılı!</span> İşlem Başarıyla Yapıldı...</div>
+    }
+}
+<br />
+@using (Ajax.BeginForm("Index", "UyeUrunYonetimi", FormMethod.Post, new AjaxOptions { OnSuccess = "filtrele" }))
+{
+    <span>Ürün Kodu :</span>
+    @Html.TextBoxFor(m => m.UrunKodu, new { @Class = "urun_kodu" })
+    <br />
+    <span>Ürün Adı : </span>
+    @Html.TextBoxFor(m => m.UrunAdi)
+    <input type="submit" value="Filtrele" class="btn btn-secondary" />
+}
+<br />
+<div id="urunler">
+    @Html.Partial("_Urunler", @Model)
+</div>
+@section scripts{
+    <script type="text/javascript">
+        function filtrele(result) {
+            $("#urunler").html(result);
+        }
+    </script>
+}

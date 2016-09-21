@@ -1,0 +1,22 @@
+﻿@using WebCinema.Models;
+@{
+    string cevap = "";
+    string konu = "";
+    foreach(cevaplar val in ViewBag.Mesaj)
+    {
+        cevap = val.cevap;
+        konu = val.konu;
+    }
+    string gonderilen_mesaj = "";
+    foreach (mesajlar val in ViewBag.Gonderilen)
+    {
+        gonderilen_mesaj = val.mesaj;   
+    }
+}
+@{
+    ViewBag.Title = "Gelen Kutusu["+konu+"]";
+}
+
+<h4 style="color:brown;">@konu</h4>
+@gonderilen_mesaj<hr />
+@cevap

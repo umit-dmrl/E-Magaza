@@ -1,0 +1,112 @@
+﻿@model WebCinema.ViewModel.UrunEkleViewModel
+@{
+    ViewBag.Title = "Yeni Ürun Ekle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<style type="text/css">
+    .multi-upload-images {
+        display:block;
+        padding:10px;
+        border:1px solid #ccc;
+        background-color:#f4f4f4;
+        overflow:hidden;
+    }
+    .multi-upload-images img {
+            width:70px;
+            height:70px;
+    }
+    .multi-upload-images label{
+        display:block;
+        float:left;
+        margin-right:5px;
+        margin-bottom:5px;
+    }
+    .multi-upload-images .multi-image-select{
+        display:block;
+        overflow:hidden;
+        border:1px solid #ccc;
+        background-color:#fcd6d6;
+        padding:5px;
+        height:100px;
+        overflow-y:scroll;
+    }
+        .multi-upload-images .multi-image-select img{
+            width:70px;
+            height:70px;
+        }
+    .multi-upload-images .multi-image-select label {
+        display:block;
+        float:left;
+        margin-left:5px;
+        margin-bottom:5px;
+    }
+    .ana_resim_sec {
+        display:block;
+        padding:10px;
+        border:1px solid #ccc;
+        background-color:#f4f4f4;
+        height:100px;
+        overflow:hidden;
+        overflow-y:scroll;
+    }
+    .ana_resim_sec label{
+        display:block;
+        float:left;
+        margin-right:5px;
+        margin-top:5px;
+    }
+    .ana_resim_sec img{
+        width:70px; height:70px;
+    }
+</style>
+<h3>Yeni Ürun Ekle</h3>
+@using (Html.BeginForm("YeniUrunEkleTest", "UyeUrunYonetimi", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.LabelFor(m=>m.UrunKodu)
+    @Html.TextBoxFor(m=>m.UrunKodu)
+
+    @Html.LabelFor(m=>m.UrunAdi)
+    @Html.TextBoxFor(m=>m.UrunAdi)
+    @Html.ValidationMessageFor(m=>m.UrunAdi)
+
+    @Html.LabelFor(m=>m.UrunKategoriID)
+    @Html.DropDownListFor(m=>m.UrunKategoriID,Model.KategoriListesi)
+    
+    @Html.LabelFor(m=>m.UrunStokAdeti)
+    @Html.TextBoxFor(m => m.UrunStokAdeti, new { type="number" })
+
+    @Html.LabelFor(m=>m.UrunFiyati)
+    @Html.TextBoxFor(m=>m.UrunFiyati, new { type="number" })
+    @Html.ValidationMessageFor(m=>m.UrunFiyati)
+
+    @Html.LabelFor(m=>m.UrunAciklamasi)
+    @Html.TextAreaFor(m=>m.UrunAciklamasi)
+
+    <label>Ürünün Ana Resmi</label>
+    <div class="ana_resim_sec">
+        @for (int i = 0; i < Model.ResimSecimi.Count(); i++)
+	    {
+		    <label>
+                <input type="radio" name="ana_resim" value="@Model.ResimSecimi[i].Text" /> <img src="~/Uploads/Products/@Model.ResimSecimi[i].Text" />
+		    </label>	    
+		}
+    </div>
+    <br /><br />
+    <label>Diğer Ürün Resimleri</label>
+    <div class="multi-upload-images">
+    <div class="multi-image-select">
+            @for (int i = 0; i < Model.ResimSecimi.Count(); i++)
+			{
+			     <label><input type="checkbox" name="secilen_coklu_resimler" value="@Model.ResimSecimi[i].Text" /> <img src="~/Uploads/Products/@Model.ResimSecimi[i].Text" width="70" height="70" /></label>
+			}
+        </div>
+    </div>
+    <br /><br />
+    @Html.LabelFor(m=>m.UrunEtiketleri)
+    @Html.TextBoxFor(m=>m.UrunEtiketleri)
+    @Html.ValidationMessageFor(m=>m.UrunEtiketleri)
+
+    <label><input type="checkbox" name="UrunOnayi" checked="checked" /> Ürün Onayı</label>
+    <br /><br />
+    <input type="submit" value="Kaydet" class="btn btn-primary" />
+}

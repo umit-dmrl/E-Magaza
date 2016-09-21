@@ -1,0 +1,45 @@
+﻿@using WebCinema.Models
+@{
+    ViewBag.Title = "Şablon Düzeni - Anasayfa";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+
+<style type="text/css">
+ul#sortable { list-style-type: none; margin: 0; padding: 0; margin-bottom: 10px; }
+ul#sortable li { margin: 5px; padding: 5px; width: 200px; height:20px; cursor:move; }
+</style>
+  
+<script type="text/javascript">
+    $(function () {
+    $( "#sortable" ).sortable({
+        revert: true,
+        opacity:0.5,
+        placeholder: "ui-state-highlight",
+        update: function () {
+            var posted = $(this).sortable("serialize");
+            $("#degerler").val(posted);
+        }
+    });
+    
+  });
+</script>
+
+<h5 style="color:#0094ff;">Ana Sayfanızdaki Modüllerin Sırasını Sürükleyerek Değiştirebilirsiniz</h5>
+
+@if (ViewBag.State == "success")
+{
+    <div class="alert alert-success"><b>Başarılı!</b> Modüllerin Sırası Değiştirildi.</div>
+}
+
+<form action="~/UyeSablonYonetimi/HomeLayoutUpdate" method="post" id="form1">
+<ul id="sortable">
+    @foreach (HomeLayoutModule item in ViewBag.Modules)
+    {
+        <li id="home_layout_@item.id" class="ui-state-default">@item.id - @item.modul_adi</li>
+    }
+</ul>
+    <input id="degerler" type="hidden" name="degerler" value="" />
+    <input type="submit" value="Güncelle" class="btn btn-primary" />
+</form>

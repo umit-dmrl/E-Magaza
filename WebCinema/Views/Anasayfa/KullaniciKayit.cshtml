@@ -1,0 +1,36 @@
+﻿@model WebCinema.ViewModel.KullaniciViewModel
+@{
+    ViewBag.Title = "Yeni Kayıt";
+}
+
+<h2>Yeni Kayıt</h2>
+<div id="userMessage"></div>
+<br />
+@using (Ajax.BeginForm("KullaniciKayit", "Anasayfa", FormMethod.Post, new AjaxOptions { OnSuccess = "success", LoadingElementId = "loading" }))
+{
+    @Html.LabelFor(m=>m.ad)<br />
+    @Html.TextBoxFor(m=>m.ad)<br />
+    @Html.ValidationMessageFor(m=>m.ad)<br /><br />
+    
+    @Html.LabelFor(m=>m.soyad)<br />
+    @Html.TextBoxFor(m=>m.soyad)<br />
+    @Html.ValidationMessageFor(m=>m.soyad)<br /><br />
+    
+    @Html.LabelFor(m=>m.sehir)<br />
+    @Html.TextBoxFor(m=>m.sehir)<br />
+    @Html.ValidationMessageFor(m=>m.sehir)<br /><br />
+    
+    <input type="submit" value="Kaydet" />
+    <br />
+    <div id="loading" style="display:none; color:orange; font-weight:bold;">Kaydediliyor...</div>
+}
+@section scripts{
+    <script type="text/javascript">
+        function success(result) {
+            if (result.IsSuccess == true) {
+                $("form")[0].reset();
+            }
+            $("#userMessage").html(result.UserMessage);
+        }
+    </script>
+}

@@ -1,0 +1,73 @@
+﻿@model WebCinema.ViewModel.UrunAraViewModel
+@using PagedList;
+@using PagedList.Mvc;
+
+<style type="text/css">
+    .list-item {
+        display:block;
+        padding:5px;
+        border-bottom:1px solid #ccc;
+        background-color:#f4f4f4;
+    }
+    .list-item .image {
+        display:block;
+        width:40px;
+        padding:3px;
+        border:1px solid #ccc;
+        background-color:white;
+        float:left;
+    }
+    .list-item .product-item {
+        display:block;
+        float:left;
+        width:70%;
+        margin-left:30px;
+    }
+    .list-item .product-item ul{
+        display:block;
+        list-style-type:none;
+        padding:0px;margin:0px;
+    }
+    .list-item .product-item ul li{
+        display:block;
+        padding:5px;
+        border-bottom:1px dotted #ccc;
+    }
+</style>
+@foreach (var urun in Model.Urunler)
+{
+    <div class="list-item">
+        <div class="image">
+            @if (urun.UrunResmi != "default")
+            {
+                <img src="~/Uploads/Products/@urun.UrunResmi" width="40"  />
+            }else{
+                <img src="~/Uploads/Products/default.png" width="40" />  
+            }
+        </div>
+        <div class="product-item">
+            <ul> 
+                <li><b>@urun.UrunKodu</b></li>
+                <li>@urun.UrunAdi</li>
+                <li>@urun.UrunFiyati TL</li>
+                <li>@urun.UrunStokAdeti Adet</li>
+                <li>
+                    @if (urun.UrunOnayi == "1")
+                    {
+                        <li><font color="green">Aktif</font></li>
+                    }else
+                    {
+                        <li><font color="orange">Pasif</font></li>
+                    }
+                </li>
+            </ul>
+            <a href="~/UyeUrunYonetimi/UrunDetay/?UrunID=@urun.UrunID" class="btn btn-primary">Düzenle</a> 
+            <a href="~/UyeUrunYonetimi/UrunDetay/?UrunID=@urun.UrunID" class="btn btn-default">Sil</a>
+        </div>
+        <div style="clear:both;"></div>
+    </div>
+}
+@Html.PagedListPager(Model.Urunler, page => Url.Action("Index", new RouteValueDictionary {
+    {"Page",page},
+    {"UrunAdi",Model.UrunAdi}
+}), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId="urunler" }))

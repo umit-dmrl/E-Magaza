@@ -1,0 +1,27 @@
+﻿@model WebCinema.ViewModel.KategoriEkleViewModel
+@{
+    ViewBag.Title = "Yeni Kategori Ekle";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+@if (ViewBag.State == "IsimCakismasi")
+{
+    <div class="alert alert-error">
+        <strong>İsim Çakışması!</strong> Aynı isimde zaten bir kategori var...
+    </div>
+}
+<h3 style="color:#6e9fdc;">Yeni Kategori Ekle</h3>
+@using (Html.BeginForm("YeniKategoriEkle", "UyeKategoriYonetimi", FormMethod.Post))
+{
+    @Html.LabelFor(m=>m.kategoriAdi)
+    @Html.TextBoxFor(m=>m.kategoriAdi)
+    @Html.ValidationMessageFor(m=>m.kategoriAdi)
+    <br />
+    <label>Sitede Gösterilsin mi?</label>
+    <select name="onay">
+        <option value="1">Aktif</option>
+        <option value="0">Pasif</option>
+    </select>
+    <br />
+    <input type="submit" value="Kaydet" class="btn btn-primary" />
+}

@@ -1,0 +1,61 @@
+﻿@model WebCinema.ViewModel.AdminLoginViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Giriş Yap</title>
+    <link rel='stylesheet prefetch' href='http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.1/css/bootstrap.min.css'>
+    <style type="text/css">
+        body {
+            background:#f4f4f4;
+            font-family:Arial;
+            font-size:12px;
+            color:gray;
+        }
+        .title {
+            font-size:35px;
+            color:gray;
+            display:block;
+            margin-left:auto; margin-right:auto;
+            width:400px;
+            margin-top:100px;
+            text-align:center;
+        }
+        .content-login {
+            display:block;
+            margin-left:auto; margin-right:auto;
+            width:220px;
+            padding:20px;
+            border:1px solid #ccc;
+            background-color:white;
+            margin-top:50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="title">Yönetim Paneli</div>
+    <div class="content-login">
+        @using (Html.BeginForm("Login","Admin",FormMethod.Post))
+        {
+            @Html.LabelFor(m=>m.eposta)
+            @Html.TextBoxFor(m=>m.eposta)
+            @Html.ValidationMessageFor(m=>m.eposta)
+            
+            @Html.LabelFor(m=>m.parola)
+            @Html.TextBoxFor(m => m.parola, new { type="Password" })
+            @Html.ValidationMessageFor(m=>m.parola)
+
+            <input type="submit" value="Giriş Yap" class="btn btn-primary" />
+        }
+         @if(ViewBag.ErrorMessage!=null)
+         {
+             <div class="alert alert-error">@ViewBag.ErrorMessage</div>
+         }
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using WebCinema.Models
+@model IPagedList<resimler>
+@{
+    ViewBag.Title = "Resimlerim";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<br />
+@if (ViewBag.State == "Success")
+{
+    <div class="alert alert-success"><span>Başarılı !</span> Resim Silindi...</div>
+}
+else if (ViewBag.State == "ResimBulunamadi")
+{
+    <div class="alert alert-error"><span>Uyarı !</span> Silinmek İstenen Resim Bulunamadı...</div>
+}
+else if (ViewBag.State == "FormatHatasi")
+{
+    <div class="alert alert-error"><span>Geçersiz İşlem !</span> Uygun Bir İstek Gönderilmedi...</div>
+}
+
+<h3>Resimlerim</h3>
+<div id="resimler">
+    @Html.Partial("_Resimler",Model)
+</div>
