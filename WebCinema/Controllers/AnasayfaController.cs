@@ -24,6 +24,11 @@ namespace WebCinema.Controllers
                 ViewBag.State = "error";
             }
             List<kategoriler> kategoriler = db.kategoriler.Where(m => m.onay == "1").ToList();
+            List<SliderResimleri> selected_slider_image = db.SliderResimleri.ToList();
+            foreach (SliderResimleri item in selected_slider_image)
+            {
+                ViewBag.SelectedSliderImages = item.resimler.Split(',');
+            }
             ViewBag.kategoriler = kategoriler;
             return View();
         }

@@ -3,8 +3,6 @@
     ViewBag.Title = "Ana Sayfa";
 }
 
-<h3><font color="brown">En Yeni Filmler</font></h3>
-
 @if (ViewBag.State == "success")
 {
     <div class="success"><font color="green">İşleminiz Başarıyla Tamamlandı...</font></div>
@@ -13,7 +11,32 @@ else if (ViewBag.State == "error")
 {
     <div class="error"><font color="maroon">İşleminiz Bir Hatayla Sonuçlandı!</font></div>
 }
+<!-- Start slider -->
+<div id="wowslider-container1">
+<div class="ws_images">
+@{
+    string[] my_slider_images = ViewBag.SelectedSliderImages;
+    int sayac=0;
+    for (int i = 0; i < my_slider_images.Length; i++)
+    {
+        <a href="#"><img src="~/Uploads/Sliders/@my_slider_images[i]" id="wows @i" width="550" height="200"/></a>
+        sayac++;
+    }
+}
+</div>
+<div class="ws_bullets"><div>
+@{
+    for(int i=0;i<sayac;i++)
+    {
+        <a href="#wows@i">@i+1</a>   
+    }
+}
+</div></div>
+</div>
+<script type="text/javascript" src="~/Scripts/ImageSlider/script.js"></script>
+<!-- End slider -->
 
+<h3><font color="brown">En Yeni Ürünler</font></h3>
 <div class="carousel slide" id="myCarousel">
         <div class="carousel-inner">
             <div class="item active">

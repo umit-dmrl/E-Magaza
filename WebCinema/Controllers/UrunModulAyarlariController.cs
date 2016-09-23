@@ -16,6 +16,12 @@ namespace WebCinema.Controllers
         cinemaDB db = new cinemaDB();
         public ActionResult Index(string state)
         {
+            List<SliderResimleri> slider_resimleri = db.SliderResimleri.ToList();
+            foreach (SliderResimleri item in slider_resimleri)
+            {
+                ViewBag.SelectedImages = item.resimler.Split(',');
+            }
+            //ViewBag.SelectedImages = slider_resimleri;
             ViewBag.State = state;
             return View();
         }
@@ -51,15 +57,40 @@ namespace WebCinema.Controllers
         [HttpPost]
         public void SliderImagesUpdate(FormCollection form)
         {
-            string resimler = "";
-            foreach (var item in form["select_image"])
+            if (form["select_image"] == null)
             {
-                resimler += item.ToString();
+                Response.Redirect("~/UrunModulAyarlari/?state=error_update");
             }
-            SliderResimleri slider = db.SliderResimleri.FirstOrDefault(m => m.id == 1);
-            slider.resimler = resimler;
-            db.SaveChanges();
-            Response.Redirect("~/UrunModulAyarlari/?state=success");
+            else
+            {
+                string resimler = "";
+                foreach (var item in form["select_image"])
+                {
+                    resimler += item.ToString();
+                }
+                SliderResimleri slider = db.SliderResimleri.FirstOrDefault(m => m.id == 1);
+                slider.resimler = resimler;
+                db.SaveChanges();
+                Response.Redirect("~/UrunModulAyarlari/?state=success_update");
+            }
+        }
+
+        public void SliderImageRemove(string image)
+        {
+            if (image == "" || image == null)
+            {
+                Response.Redirect("~/UrunModulAyarlari/?state=error_image_notfound");
+            }
+            else
+            {
+                try
+                {
+                    System.IO.File.Delete(Server.MapPath("~/Uploads/Sliders/" + image));
+                    Response.Redirect("~/UrunModulAyarlari/?state=success_image_remove");
+                }catch(FileNotFoundException){
+                    Response.Redirect("~/UrunModulAyarlari/?state=error_image_remove");
+                }
+            }
         }
 
     }

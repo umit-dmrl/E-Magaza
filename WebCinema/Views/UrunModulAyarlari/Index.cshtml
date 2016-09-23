@@ -1,4 +1,5 @@
 ﻿@model WebCinema.ViewModel.ResimYukleViewModel
+@using WebCinema.Models
 @{
     ViewBag.Title = "Slider Modülü";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
@@ -9,7 +10,27 @@
 }
 else if (ViewBag.State == "error")
 {
-    <br /><div class="alert alert-info"><b>Hata!</b> Seçtiğiniz bazı resimler veya tümü format hatası nedeniyle yüklenmemiş olabilir...</div>
+    <br /><div class="alert alert-error"><b>Hata!</b> Seçtiğiniz bazı resimler veya tümü format hatası nedeniyle yüklenmemiş olabilir...</div>
+}
+else if (ViewBag.State == "error_update")
+{
+    <br /><div class="alert alert-info"><b>Hata!</b> Slider resimleri listesinden hiç seçim yapılmadı...</div>
+}
+else if (ViewBag.State == "success_update")
+{
+    <br /><div class="alert alert-success"><b>Başarılı!</b> Slider resimleriniz güncellendi...</div>
+}
+else if (ViewBag.State == "success_image_remove")
+{
+    <br /><div class="alert alert-success"><b>Başarılı!</b> Resim sistemden silindi...</div>
+}
+else if (ViewBag.State == "error_image_remove")
+{
+    <br /><div class="alert alert-error"><b>Hata!</b> Resim sistemden silinirken bir hata oluştu...</div>
+}
+else if (ViewBag.State == "error_image_notfound")
+{
+    <br /><div class="alert alert-error"><b>Hata!</b> Silmek istediğiniz resim sistemde bulunamadı...</div>
 }
 
 <h4 style="color:#0094ff;">Slider için yeni resimler yükleyin...</h4>
@@ -28,17 +49,41 @@ else if (ViewBag.State == "error")
 <div class="images-section-title">Slider Modülünde Gösterilecek Resimleri Seçiniz...</div>
 <div class="images-section">
 @{
+    string[] selected_images_items = ViewBag.SelectedImages;    
+    //////
     string path = Server.MapPath("~/Uploads/Sliders").ToString();
     DirectoryInfo di = new DirectoryInfo(path);
     FileInfo[] dosyalar = di.GetFiles();
     int sayac=0;
+    
     foreach (FileInfo file in dosyalar)
     {
-        <div class="image-item">
-            <img src="~/Uploads/Sliders/@file.Name.ToString()" />
-            <label><input type="checkbox" name="select_image" value="@file.Name.ToString()" /> Onayla</label>
-            <a href="~/UrunModulAyarlari/SliderImageRemove/?image=@file.Name.ToString()" class="btn btn-default" >Resmi Kaldır</a>
-        </div>;
+        bool kontrol = false;
+        for (int i = 0; i < selected_images_items.Length; i++)
+        {
+            if(file.Name.ToString()==selected_images_items[i])
+            {
+                <div class="image-item-active">
+                    <img src="~/Uploads/Sliders/@file.Name.ToString()" />
+                    <label><input type="checkbox" checked="checked" name="select_image" value="@file.Name.ToString()" /> Onayla</label>
+                    <a href="~/UrunModulAyarlari/SliderImageRemove/?image=@file.Name.ToString()" class="btn btn-default" >Resmi Kaldır</a>
+                </div>
+                kontrol = false;
+                break;
+            }
+            
+            kontrol = true;
+            
+        }
+        if(kontrol==true)
+        {
+            <div class="image-item">
+                <img src="~/Uploads/Sliders/@file.Name.ToString()" />
+                <label><input type="checkbox" name="select_image" value="@file.Name.ToString()" /> Onayla</label>
+                <a href="~/UrunModulAyarlari/SliderImageRemove/?image=@file.Name.ToString()" class="btn btn-default" >Resmi Kaldır</a>
+            </div> 
+        }
+        
         sayac++;
     }
     if(sayac==0)
@@ -49,6 +94,7 @@ else if (ViewBag.State == "error")
 </div>
 <p><center><input type="submit" value="Değişiklikleri Kaydet Ve Güncelle" class="btn btn-primary" /></center></p>
 </form>
+
 <style type="text/css">
     .images-section-title {
         width:100%;
@@ -84,6 +130,22 @@ else if (ViewBag.State == "error")
         text-align:center;
     }
     .images-section .image-item img{
+        display:block;
+        width:100px;
+        height:100px;    
+    }
+    .images-section .image-item-active{
+        display:block;
+        float:left;
+        padding:5px;
+        border:1px solid #ccc;
+        background-color:#97fb84;
+        width:100px;
+        height:155px;
+        margin-right:5px;
+        text-align:center;
+    }
+    .images-section .image-item-active img{
         display:block;
         width:100px;
         height:100px;    
