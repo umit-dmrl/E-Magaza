@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Xml Oluşturucu";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h5 style="color:#0094ff;">Ürünlerinizin XML Formatında Çıktısını Alın</h5>
+@if (ViewBag.State == "success")
+{
+    <div class="alert alert-success"><b>Başarılı!</b> Xml Dosyanız Oluşturuldu...</div>
+}else if (ViewBag.State == "error")
+{
+    <div class="alert alert-error"><b>Hata!</b> Xml Dosyanız Oluşturulurken Bir Hata Oluştu!</div>
+}
+<form action="~/UrunModulAyarlari/XmlCreate" method="post">
+    <input type="submit" value="Xml i Oluştur" class="btn btn-primary" />
+</form>

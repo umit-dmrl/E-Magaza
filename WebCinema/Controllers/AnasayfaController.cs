@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml;
 using WebCinema.Models;
 using WebCinema.ViewModel;
 
@@ -117,6 +118,37 @@ namespace WebCinema.Controllers
             db.SaveChanges();
             Response.Redirect("~/Anasayfa/KayitOl/?islem=success");
             return View(model);
+        }
+        public void ReadXMLProducts()
+        {
+            XmlTextReader read = new XmlTextReader(Server.MapPath("~/App_Data/Products.xml"));
+            while (read.Read())
+            {
+                if (read.NodeType == XmlNodeType.Element)
+                {
+                    if (read.Name == "urun_kodu")
+                    {
+                        Response.Write("Ürün Kodu : "+read.ReadString().ToString()+"<br/>");
+                    }
+                    else if (read.Name == "urun_adi")
+                    {
+                        Response.Write("Ürün Adı : " + read.ReadString().ToString() + "<br/>");
+                    }
+                    else if (read.Name == "fiyat")
+                    {
+                        Response.Write("Ürün Fiyatı : " + read.ReadString().ToString() + "<br/>");
+                    }
+                    else if (read.Name == "kdv")
+                    {
+                        Response.Write("KDV : " + read.ReadString().ToString() + "<br/>");
+                    }
+                    else if (read.Name == "aciklama")
+                    {
+                        Response.Write("Açıklama : " + read.ReadString().ToString() + "<br/><hr/>");
+                    }
+                }
+            }
+            read.Close();
         }
         /*public ActionResult KullaniciKayit()
         {

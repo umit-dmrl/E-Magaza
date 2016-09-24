@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebCinema.ViewModel;
 using WebCinema.Models;
+using System.Xml;
+using System.Text;
 
 namespace WebCinema.Controllers
 {
@@ -91,6 +93,53 @@ namespace WebCinema.Controllers
                     Response.Redirect("~/UrunModulAyarlari/?state=error_image_remove");
                 }
             }
+        }
+
+        // XML Modülü
+        public ActionResult XmlCreate()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult XmlCreate(FormCollection form)
+        {
+            try
+            {
+                List<urunler> urun = db.urunler.ToList();
+
+                XmlTextWriter xml = new XmlTextWriter(Server.MapPath("~/XmlCreated/products.xml"), Encoding.UTF8);
+                xml.Formatting = Formatting.Indented;
+                xml.WriteStartDocument();
+                xml.WriteStartElement("Products");
+            
+                foreach (urunler item in urun)
+                {
+                    xml.WriteStartElement("product");
+                    xml.WriteElementString("ID", item.id.ToString());
+                    xml.WriteElementString("UrunKodu", item.UrunKodu.ToString());
+                    xml.WriteElementString("UrunAdi", item.UrunAdi.ToString());
+                    xml.WriteElementString("UrunResmi", item.UrunResmi.ToString());
+                    xml.WriteElementString("UrunResimleri", item.UrunResimleri.ToString());
+                    xml.WriteElementString("UrunAciklamasi", item.UrunAciklamasi.ToString());
+                    xml.WriteElementString("UrunEtiketleri", item.UrunEtiketleri.ToString());
+                    xml.WriteElementString("UrunFiyati", item.UrunFiyati.ToString());
+                    xml.WriteElementString("UrunOnayi", item.UrunOnayi.ToString());
+                    xml.WriteElementString("UrunStokAdeti", item.UrunStokAdeti.ToString());
+                    xml.WriteElementString("UrunKategoriID", item.UrunKategoriID.ToString());
+                    xml.WriteEndElement();
+                }
+            
+                xml.WriteEndElement();
+
+                xml.Close();
+
+                ViewBag.State = "success";
+            }catch(XmlException)
+            {
+                ViewBag.State = "error";
+            }
+
+            return View();
         }
 
     }

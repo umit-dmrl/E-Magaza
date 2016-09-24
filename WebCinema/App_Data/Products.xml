@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Products>
+    <product>
+        <urun_kodu>1</urun_kodu>
+        <urun_adi>Test Product 1</urun_adi>
+        <fiyat>10</fiyat>
+        <kdv>%18</kdv>
+        <aciklama>description</aciklama>
+    </product>
+    <product>
+      <urun_kodu>2</urun_kodu>
+      <urun_adi>Test Product 2</urun_adi>
+      <fiyat>15</fiyat>
+      <kdv>%18</kdv>
+      <aciklama>description 2...</aciklama>
+    </product>
+</Products>

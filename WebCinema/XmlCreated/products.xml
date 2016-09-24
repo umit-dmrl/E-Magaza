@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Products>
+  <product>
+    <ID>1</ID>
+    <UrunKodu>13542</UrunKodu>
+    <UrunAdi>HP Bilgisayar</UrunAdi>
+    <UrunResmi>696184.jpg</UrunResmi>
+    <UrunResimleri>default,370047.jpg,758885.png</UrunResimleri>
+    <UrunAciklamasi>2 GB Ekran Kartı , 8 GB DDR3 Ram Bellek, 1 TB HDD, USB 3.0 Desteği, 15.5 INC Ekran</UrunAciklamasi>
+    <UrunEtiketleri>pc,bilgisayar,masaüstü,test</UrunEtiketleri>
+    <UrunFiyati>1500</UrunFiyati>
+    <UrunOnayi>0</UrunOnayi>
+    <UrunStokAdeti>150</UrunStokAdeti>
+    <UrunKategoriID>3</UrunKategoriID>
+  </product>
+  <product>
+    <ID>2</ID>
+    <UrunKodu>M11</UrunKodu>
+    <UrunAdi>Samsung R540</UrunAdi>
+    <UrunResmi>885233.jpg</UrunResmi>
+    <UrunResimleri>90692.png,927311.png,370047.jpg,</UrunResimleri>
+    <UrunAciklamasi>ürün ile ilgili özellikler ;</UrunAciklamasi>
+    <UrunEtiketleri>laptop,samsung,r540</UrunEtiketleri>
+    <UrunFiyati>1500</UrunFiyati>
+    <UrunOnayi>1</UrunOnayi>
+    <UrunStokAdeti>100</UrunStokAdeti>
+    <UrunKategoriID>4</UrunKategoriID>
+  </product>
+  <product>
+    <ID>3</ID>
+    <UrunKodu>M12</UrunKodu>
+    <UrunAdi>General Mobile 2 Elite</UrunAdi>
+    <UrunResmi>5454317.jpg</UrunResmi>
+    <UrunResimleri>652421.jpg,73997.jpg,199655.jpg,586790.jpg,</UrunResimleri>
+    <UrunAciklamasi>8 Mps Kamera
+1 GB Ram
+8 GB Depolama Alanı (Arttırılabilir Alan)
+Sistem Tipi : Android
+Sistem Verisiyonu : Kitkat 4.0</UrunAciklamasi>
+    <UrunEtiketleri>general mobile,telefon,android</UrunEtiketleri>
+    <UrunFiyati>800</UrunFiyati>
+    <UrunOnayi>1</UrunOnayi>
+    <UrunStokAdeti>25</UrunStokAdeti>
+    <UrunKategoriID>3</UrunKategoriID>
+  </product>
+  <product>
+    <ID>4</ID>
+    <UrunKodu>2564</UrunKodu>
+    <UrunAdi>Arçelik Buzdolabı</UrunAdi>
+    <UrunResmi>370047.jpg</UrunResmi>
+    <UrunResimleri>696184.jpg,758885.png,242093.jpg</UrunResimleri>
+    <UrunAciklamasi>Çift motor
+6 yıl garanti
+derin dondurucu
+iç hacim : 240 lt</UrunAciklamasi>
+    <UrunEtiketleri>arçelik,buzdolabı</UrunEtiketleri>
+    <UrunFiyati>1200</UrunFiyati>
+    <UrunOnayi>1</UrunOnayi>
+    <UrunStokAdeti>50</UrunStokAdeti>
+    <UrunKategoriID>1</UrunKategoriID>
+  </product>
+</Products>
