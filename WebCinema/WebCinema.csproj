@@ -205,6 +205,7 @@
     <Compile Include="ViewModel\UrunAraViewModel.cs" />
     <Compile Include="ViewModel\UrunEkleViewModel.cs" />
     <Compile Include="ViewModel\UrunListModel.cs" />
+    <Compile Include="ViewModel\XmlUploadViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Products.xml" />
@@ -339,6 +340,7 @@
     <Content Include="Views\UyeSablonYonetimi\Anasayfa.cshtml" />
     <Content Include="Views\UrunModulAyarlari\Index.cshtml" />
     <Content Include="Views\UrunModulAyarlari\XmlCreate.cshtml" />
+    <Content Include="Views\UrunModulAyarlari\XmlImport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

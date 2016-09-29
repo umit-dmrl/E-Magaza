@@ -6,7 +6,10 @@
 <h5 style="color:#0094ff;">Ürünlerinizin XML Formatında Çıktısını Alın</h5>
 @if (ViewBag.State == "success")
 {
-    <div class="alert alert-success"><b>Başarılı!</b> Xml Dosyanız Oluşturuldu...</div>
+    <div class="alert alert-success"><b>Başarılı!</b> Xml Dosyanız Oluşturuldu...
+        <br /><br />
+        <a href="~/UrunModulAyarlari/DownloadXml" class="btn btn-primary">indir</a>
+    </div>
 }else if (ViewBag.State == "error")
 {
     <div class="alert alert-error"><b>Hata!</b> Xml Dosyanız Oluşturulurken Bir Hata Oluştu!</div>

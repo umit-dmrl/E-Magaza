@@ -1,0 +1,159 @@
+﻿@model WebCinema.ViewModel.XmlUploadViewModel
+@using WebCinema.Models;
+@{
+    ViewBag.Title = "Xml Import";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<h5 style="color:#0094ff;">Xml Dosyanızı Yükleyerek Ürünlerinizi Kolayca Sitenize Ekleyin</h5>
+
+@if (ViewBag.State == "success")
+{
+    <div class="alert alert-success"><b>Başarılı!</b> Xml Dosyanız Yüklendi.</div>
+}
+else if (ViewBag.State == "error")
+{
+    <div class="alert alert-error"><b>Hata!</b> Xml Dosyanız Yüklenirken Bir Hata Oluştu.</div>
+}
+else if (ViewBag.State == "error_null")
+{
+    <div class="alert alert-info"><b>Uyarı!</b> Dosya Seçilemedi Veya Boş Bir Sonuç Geldi.</div>
+}
+else if (ViewBag.State == "error_format")
+{
+    <div class="alert alert-error"><b>Hata!</b> Seçilen dosya XML formatında değil. Lütfen XML uzantılı bir dosya seçiniz.</div>
+}
+
+@using (Html.BeginForm("XmlImport", "UrunModulAyarlari", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.LabelFor(m=>m.dosya)
+    @Html.TextBoxFor(m => m.dosya, new { Type="file" })
+    @Html.ValidationMessageFor(m=>m.dosya)
+
+    <input type="submit" value="Yükle" class="btn btn-primary" />
+}
+
+@if (ViewBag.State == "success")
+{
+    System.Xml.XmlTextReader oku = new System.Xml.XmlTextReader(Server.MapPath("~/Uploads/Xml/uploaded_xml.xml"));
+    List<string> list_names = new List<string>(); 
+    while(oku.Read())
+    {
+        if(oku.NodeType == System.Xml.XmlNodeType.Element)   
+        {
+            
+            if(list_names.Count > 0)
+            {
+                //Bu kısımda listedeki elemanlarla xml dosyasında okunmaya devam eden elemanlara bakılıyor
+                bool durum = false;
+                foreach (var list_item in list_names)
+                {
+                    if(oku.Name.ToString()==list_item.ToString())
+                    {
+                        durum = false;
+                        break;    
+                    }else{
+                        durum = true;
+                    }
+                }
+                if(durum==true)
+                {
+                    list_names.Add(oku.Name.ToString());
+                    <!--<span>@oku.Name.ToString()</span><br /> test-->
+                }   
+            }else{
+                    list_names.Add(oku.Name.ToString());
+                   <!--<span>@oku.Name.ToString()</span><br /> test-->
+            }
+        }
+    }
+    oku.Close();
+    //Formu göster
+    <form action="~/UrunModulAyarlari/XmlProductAdd" method="post" class="form_compresed" >
+        <h5 style="color:orange;">Aşağıdaki Ürün Alanları İle Xml Dosyasındaki Alanların Eşleşmesini Yapınız.</h5>
+        <label>Ürün Kodu : </label>
+        <select name="UrunKodu">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ürün Adı : </label>
+        <select name="UrunAdi">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ana Ürün Resmi : </label>
+        <select name="UrunResmi">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ürünün Diğer Resimleri : </label>
+        <select name="UrunResimleri">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ürün Açıklaması : </label>
+        <select name="UrunAciklamasi">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ürün Etiketleri : </label>
+        <select name="UrunEtiketleri">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ürün Fiyatı : </label>
+        <select name="UrunFiyati">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ürün Onayı : </label>
+        <select name="UrunOnayi">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ürün Stok Adeti : </label>
+        <select name="UrunStokAdeti">
+            @foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }
+        </select>
+        <label>Ürün Kategori No : (Bu kısım ürünlerinizin sitede kategoriler altında gösterilmesini sağlar)</label>
+        <select name="UrunKategoriID">
+            <!--@foreach (var item in list_names)
+            {
+                <option value="@item.ToString()">@item.ToString()</option>
+            }-->
+            <option value="-1" disabled="disabled" style="color:orange;">----- Kategorilerden Seçim Yap -----</option>
+            @foreach (kategoriler cat in ViewBag.Kategoriler)
+            {
+                <option value="@cat.id.ToString()">@cat.kategoriAdi.ToString()</option>
+            }
+        </select>
+        <br />
+        <input type="submit" value="Ürünleri Ekle" class="btn btn-primary" />
+    </form>
+}
+<style type="text/css">
+    .form_compresed {
+        display:block;
+        padding:10px;
+        border:1px solid #ccc;
+        background-color:#f4f4f4;
+    }
+</style>

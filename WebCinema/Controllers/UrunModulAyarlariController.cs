@@ -133,6 +133,7 @@ namespace WebCinema.Controllers
 
                 xml.Close();
 
+
                 ViewBag.State = "success";
             }catch(XmlException)
             {
@@ -140,6 +141,106 @@ namespace WebCinema.Controllers
             }
 
             return View();
+        }
+
+        public FileResult DownloadXml()
+        {
+            byte[] file_byte = System.IO.File.ReadAllBytes(Server.MapPath("~/XmlCreated/products.xml"));
+            return File(file_byte, System.Net.Mime.MediaTypeNames.Application.Octet, "products.xml");
+        }
+        //Xml import action view
+        public ActionResult XmlImport()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult XmlImport(XmlUploadViewModel model)
+        {
+            if (model.dosya != null && model.dosya.ContentLength>0)
+            {
+                string file_extension = model.dosya.FileName.ToString().Substring(model.dosya.FileName.Length - 3);
+                if (file_extension == "xml")
+                {
+                    model.dosya.SaveAs(Server.MapPath("~/Uploads/Xml/uploaded_xml.xml"));
+                    ViewBag.State = "success";
+
+                    List<kategoriler> kategoriler = db.kategoriler.ToList();
+                    ViewBag.Kategoriler = kategoriler;
+                }
+                else
+                {
+                    ViewBag.State = "error_format";
+                }
+            }
+            else
+            {
+                ViewBag.State = "error_null";
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public void XmlProductAdd(FormCollection form)
+        {
+            
+
+            string UrunKodu = form["UrunKodu"];
+            string UrunAdi = form["UrunAdi"];
+            string UrunResmi = form["UrunResmi"];
+            string UrunResimleri = form["UrunResimleri"];
+            string UrunAciklamasi = form["UrunAciklamasi"];
+            string UrunEtiketleri = form["UrunEtiketleri"];
+            string UrunFiyati = form["UrunFiyati"];
+            string UrunOnayi = form["UrunOnayi"];
+            string UrunStokAdeti = form["UrunStokAdeti"];
+            string UrunKategoriID = form["UrunKategoriID"];
+
+            XmlTextReader oku = new XmlTextReader(Server.MapPath("~/Uploads/Xml/uploaded_xml.xml"));
+            while (oku.Read())
+            {
+                if (oku.NodeType == XmlNodeType.Element)
+                {
+                    urunler model = new urunler();
+                    if (oku.Name.ToString() == UrunKodu)
+                    {
+                        Response.Write("Ürün Kodu : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    if (oku.Name.ToString() == UrunAdi)
+                    {
+                        Response.Write("Ürün Adı : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    if (oku.Name.ToString() == UrunResmi)
+                    {
+                        Response.Write("Ürün Resmi : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    if (oku.Name.ToString() == UrunResimleri)
+                    {
+                        Response.Write("Ürün Resimleri : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    if (oku.Name.ToString() == UrunAciklamasi)
+                    {
+                        Response.Write("Ürün Açıklaması : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    if (oku.Name.ToString() == UrunEtiketleri)
+                    {
+                        Response.Write("Ürün Etiketleri : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    if (oku.Name.ToString() == UrunFiyati)
+                    {
+                        Response.Write("Ürün Fiyatı : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    if (oku.Name.ToString() == UrunOnayi)
+                    {
+                        Response.Write("Ürün Onayı : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    if (oku.Name.ToString() == UrunStokAdeti)
+                    {
+                        Response.Write("Ürün Stok Adeti : " + oku.ReadString().ToString() + "<br>");
+                    }
+                    
+                }
+            }
         }
 
     }
