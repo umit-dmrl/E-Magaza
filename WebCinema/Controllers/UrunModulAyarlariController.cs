@@ -9,6 +9,10 @@ using WebCinema.Models;
 using System.Xml;
 using System.Text;
 
+using System.Net.Http;
+using System.Web.ClientServices;
+using System.Net;
+
 namespace WebCinema.Controllers
 {
     public class UrunModulAyarlariController : Controller
@@ -197,48 +201,68 @@ namespace WebCinema.Controllers
             string UrunKategoriID = form["UrunKategoriID"];
 
             XmlTextReader oku = new XmlTextReader(Server.MapPath("~/Uploads/Xml/uploaded_xml.xml"));
+            string add_data = "";
             while (oku.Read())
             {
+                string data = "";
                 if (oku.NodeType == XmlNodeType.Element)
                 {
-                    urunler model = new urunler();
                     if (oku.Name.ToString() == UrunKodu)
                     {
-                        Response.Write("Ürün Kodu : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Kodu : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString()+"{";
                     }
                     if (oku.Name.ToString() == UrunAdi)
                     {
-                        Response.Write("Ürün Adı : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Adı : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString() + "{";
                     }
                     if (oku.Name.ToString() == UrunResmi)
                     {
-                        Response.Write("Ürün Resmi : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Resmi : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString() + "{";
                     }
                     if (oku.Name.ToString() == UrunResimleri)
                     {
-                        Response.Write("Ürün Resimleri : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Resimleri : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString() + "{";
                     }
                     if (oku.Name.ToString() == UrunAciklamasi)
                     {
-                        Response.Write("Ürün Açıklaması : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Açıklaması : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString() + "{";
                     }
                     if (oku.Name.ToString() == UrunEtiketleri)
                     {
-                        Response.Write("Ürün Etiketleri : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Etiketleri : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString() + "{";
                     }
                     if (oku.Name.ToString() == UrunFiyati)
                     {
-                        Response.Write("Ürün Fiyatı : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Fiyatı : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString() + "{";
                     }
                     if (oku.Name.ToString() == UrunOnayi)
                     {
-                        Response.Write("Ürün Onayı : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Onayı : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString() + "{";
                     }
                     if (oku.Name.ToString() == UrunStokAdeti)
                     {
-                        Response.Write("Ürün Stok Adeti : " + oku.ReadString().ToString() + "<br>");
+                        //Response.Write("Ürün Stok Adeti : " + oku.ReadString().ToString() + "<br>");
+                        data += oku.ReadString().ToString() + "]";
                     }
                     
+                }
+                //data parse
+                string[] data_item = data.Split('{');
+                for (int i = 0; i < data_item.Length; i++)
+                {
+                    if (data_item[i] != null && data_item[i] != "")
+                    {
+                        Response.Write(data_item[i] + "/");
+                        add_data += data_item[i];
+                    }
                 }
             }
         }

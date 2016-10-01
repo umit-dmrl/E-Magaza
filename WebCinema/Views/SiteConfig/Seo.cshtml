@@ -1,0 +1,54 @@
+﻿@model WebCinema.ViewModel.SeoViewModel
+@using WebCinema.Models
+@{
+    ViewBag.Title = "Seo Ayarlarınızı Yapılandırın";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    string google_analytics_code = "";
+    foreach (SeoOptimizasyonu item in ViewBag.GoogleCode)
+    {
+        google_analytics_code = item.google_analytic_code;
+    }
+}
+@if (ViewBag.State == "success")
+{
+    <br />
+    <div class="alert alert-success"><b>Başarılı!</b> Site map dosyası başarıyla yüklendi...</div>
+}
+else if (ViewBag.State == "error_format")
+{
+    <br />
+    <div class="alert alert-error"><b>Format Hatası!</b> Lütfen seçtiğiniz dosyanın xml uzantılı olmasına özen gösteriniz...</div>
+}
+<h3 style="color:#0094ff;">Seo Ayarlarınızı Yapılandırın</h3>
+<div class="alert alert-info">
+    Sitenizin google arama motorundaki istatistiklerine ulaşmak için google analitik hesabınızla aldığınız kodu aşağıya yapıştırın.
+</div>
+@using (Ajax.BeginForm("Seo", "SiteConfig", FormMethod.Post, new AjaxOptions { OnSuccess = "success" }))
+{
+    <label>Google Analitik Kodu : </label>
+    <textarea name="google_code" cols="60" rows="5" style="width:100%;">@google_analytics_code</textarea>
+    <br />
+    <p align="right"><input type="submit" value="Güncelle" class="btn btn-primary" /></p>
+}
+<h3 style="color:#0094ff;">Site Haritası Yükleyin</h3>
+<div class="alert alert-info">
+    Web sitenizin arama motorları tarafından çok daha iyi bir şekilde taranması için site haritasını çıkarıp aşağıdaki alandan sisteme
+    yükleyiniz.
+    <b><a href="https://www.xml-sitemaps.com/" target="_blank">Site Haritası Oluşturmak İçin Tıklayınız</a></b>
+</div>
+@using (Html.BeginForm("SiteMapUpload", "SiteConfig", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.TextBoxFor(m => m.dosya, new { type = "file" })
+    @Html.ValidationMessageFor(m => m.dosya)
+    <input type="submit" value="Yükle" class="btn btn-primary" />
+}
+
+@section scripts{
+    <script type="text/javascript">
+        function success(msg) {
+            alert(msg.AjaxMessage);
+        }
+    </script>
+}

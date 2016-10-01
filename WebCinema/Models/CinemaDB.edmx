@@ -8,10 +8,13 @@
         <EntityContainer Name="cinemaModelStoreContainer">
           <EntitySet Name="cevaplar" EntityType="cinemaModel.Store.cevaplar" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="HomeLayoutModule" EntityType="cinemaModel.Store.HomeLayoutModule" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="IletisimBilgileri" EntityType="cinemaModel.Store.IletisimBilgileri" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="kategoriler" EntityType="cinemaModel.Store.kategoriler" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="makaleler" EntityType="cinemaModel.Store.makaleler" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="mesajlar" EntityType="cinemaModel.Store.mesajlar" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="resimler" EntityType="cinemaModel.Store.resimler" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SeoOptimizasyonu" EntityType="cinemaModel.Store.SeoOptimizasyonu" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="SiteAyarlari" EntityType="cinemaModel.Store.SiteAyarlari" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="SliderResimleri" EntityType="cinemaModel.Store.SliderResimleri" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="urunler" EntityType="cinemaModel.Store.urunler" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="uyeler" EntityType="cinemaModel.Store.uyeler" store:Type="Tables" Schema="dbo" />
@@ -35,6 +38,23 @@
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="modul_adi" Type="nvarchar" MaxLength="50" />
           <Property Name="sira" Type="nvarchar" MaxLength="2" />
+        </EntityType>
+        <EntityType Name="IletisimBilgileri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="adres" Type="text" />
+          <Property Name="tel1" Type="nvarchar" MaxLength="20" />
+          <Property Name="tel2" Type="nvarchar" MaxLength="20" />
+          <Property Name="tel3" Type="nvarchar" MaxLength="20" />
+          <Property Name="gsm1" Type="nvarchar" MaxLength="20" />
+          <Property Name="gsm2" Type="nvarchar" MaxLength="20" />
+          <Property Name="gsm3" Type="nvarchar" MaxLength="20" />
+          <Property Name="google_maps" Type="text" />
+          <Property Name="facebook_adress" Type="text" />
+          <Property Name="twitter_adress" Type="text" />
+          <Property Name="instagram_adress" Type="text" />
         </EntityType>
         <EntityType Name="kategoriler">
           <Key>
@@ -72,6 +92,23 @@
           </Key>
           <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="resim" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="SeoOptimizasyonu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="google_analytic_code" Type="text" />
+        </EntityType>
+        <EntityType Name="SiteAyarlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="site_title" Type="nvarchar" MaxLength="50" />
+          <Property Name="site_description" Type="text" />
+          <Property Name="site_slogan" Type="nvarchar" MaxLength="50" />
+          <Property Name="site_keyword" Type="text" />
         </EntityType>
         <EntityType Name="SliderResimleri">
           <Key>
@@ -120,6 +157,9 @@
           <EntitySet Name="resimler" EntityType="cinemaModel.resimler" />
           <EntitySet Name="HomeLayoutModule" EntityType="cinemaModel.HomeLayoutModule" />
           <EntitySet Name="SliderResimleri" EntityType="cinemaModel.SliderResimleri" />
+          <EntitySet Name="SiteAyarlari" EntityType="cinemaModel.SiteAyarlari" />
+          <EntitySet Name="SeoOptimizasyonu" EntityType="cinemaModel.SeoOptimizasyonu" />
+          <EntitySet Name="IletisimBilgileri" EntityType="cinemaModel.IletisimBilgileri" />
         </EntityContainer>
         <EntityType Name="kategoriler">
           <Key>
@@ -210,6 +250,40 @@
           </Key>
           <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="resimler" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SiteAyarlari">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="site_title" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="site_description" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="site_slogan" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="site_keyword" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SeoOptimizasyonu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="google_analytic_code" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="IletisimBilgileri">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="Int32" Name="id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="adres" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="tel1" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tel2" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="tel3" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="gsm1" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="gsm2" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="gsm3" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="google_maps" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="facebook_adress" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="twitter_adress" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="instagram_adress" MaxLength="Max" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -312,6 +386,43 @@
             <EntityTypeMapping TypeName="cinemaModel.SliderResimleri">
               <MappingFragment StoreEntitySet="SliderResimleri">
                 <ScalarProperty Name="resimler" ColumnName="resimler" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SiteAyarlari">
+            <EntityTypeMapping TypeName="cinemaModel.SiteAyarlari">
+              <MappingFragment StoreEntitySet="SiteAyarlari">
+                <ScalarProperty Name="site_keyword" ColumnName="site_keyword" />
+                <ScalarProperty Name="site_slogan" ColumnName="site_slogan" />
+                <ScalarProperty Name="site_description" ColumnName="site_description" />
+                <ScalarProperty Name="site_title" ColumnName="site_title" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SeoOptimizasyonu">
+            <EntityTypeMapping TypeName="cinemaModel.SeoOptimizasyonu">
+              <MappingFragment StoreEntitySet="SeoOptimizasyonu">
+                <ScalarProperty Name="google_analytic_code" ColumnName="google_analytic_code" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IletisimBilgileri">
+            <EntityTypeMapping TypeName="cinemaModel.IletisimBilgileri">
+              <MappingFragment StoreEntitySet="IletisimBilgileri">
+                <ScalarProperty Name="instagram_adress" ColumnName="instagram_adress" />
+                <ScalarProperty Name="twitter_adress" ColumnName="twitter_adress" />
+                <ScalarProperty Name="facebook_adress" ColumnName="facebook_adress" />
+                <ScalarProperty Name="google_maps" ColumnName="google_maps" />
+                <ScalarProperty Name="gsm3" ColumnName="gsm3" />
+                <ScalarProperty Name="gsm2" ColumnName="gsm2" />
+                <ScalarProperty Name="gsm1" ColumnName="gsm1" />
+                <ScalarProperty Name="tel3" ColumnName="tel3" />
+                <ScalarProperty Name="tel2" ColumnName="tel2" />
+                <ScalarProperty Name="tel1" ColumnName="tel1" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
                 <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>

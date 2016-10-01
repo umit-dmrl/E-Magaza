@@ -39,6 +39,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.4.9.5, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.4.9.5\lib\Net45\HtmlAgilityPack.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PagedList">
       <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
@@ -137,6 +141,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\AnasayfaController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\SiteConfigController.cs" />
     <Compile Include="Controllers\UrunModulAyarlariController.cs" />
     <Compile Include="Controllers\UyeController.cs" />
     <Compile Include="Controllers\UyeResimYonetimiController.cs" />
@@ -166,6 +171,9 @@
     <Compile Include="Models\HomeLayoutModule.cs">
       <DependentUpon>CinemaDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\IletisimBilgileri.cs">
+      <DependentUpon>CinemaDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\kategoriler.cs">
       <DependentUpon>CinemaDB.tt</DependentUpon>
     </Compile>
@@ -176,6 +184,12 @@
       <DependentUpon>CinemaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\resimler.cs">
+      <DependentUpon>CinemaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SeoOptimizasyonu.cs">
+      <DependentUpon>CinemaDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\SiteAyarlari.cs">
       <DependentUpon>CinemaDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\SliderResimleri.cs">
@@ -202,6 +216,7 @@
     <Compile Include="Controllers\UyeKategoriYonetimiController.cs" />
     <Compile Include="ViewModel\ResimSecimListViewModel.cs" />
     <Compile Include="ViewModel\ResimYukleViewModel.cs" />
+    <Compile Include="ViewModel\SeoViewModel.cs" />
     <Compile Include="ViewModel\UrunAraViewModel.cs" />
     <Compile Include="ViewModel\UrunEkleViewModel.cs" />
     <Compile Include="ViewModel\UrunListModel.cs" />
@@ -341,6 +356,9 @@
     <Content Include="Views\UrunModulAyarlari\Index.cshtml" />
     <Content Include="Views\UrunModulAyarlari\XmlCreate.cshtml" />
     <Content Include="Views\UrunModulAyarlari\XmlImport.cshtml" />
+    <Content Include="Views\SiteConfig\Index.cshtml" />
+    <Content Include="Views\SiteConfig\Seo.cshtml" />
+    <Content Include="Views\SiteConfig\Contact.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Uploads\" />

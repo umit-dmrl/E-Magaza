@@ -34,5 +34,8 @@ namespace WebCinema.Models
         public DbSet<resimler> resimler { get; set; }
         public DbSet<HomeLayoutModule> HomeLayoutModule { get; set; }
         public DbSet<SliderResimleri> SliderResimleri { get; set; }
+        public DbSet<SiteAyarlari> SiteAyarlari { get; set; }
+        public DbSet<SeoOptimizasyonu> SeoOptimizasyonu { get; set; }
+        public DbSet<IletisimBilgileri> IletisimBilgileri { get; set; }
     }
 }

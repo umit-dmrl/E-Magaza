@@ -14,6 +14,9 @@
         <EntityTypeShape EntityType="cinemaModel.resimler" Width="1.5" PointX="0.5" PointY="2.625" />
         <EntityTypeShape EntityType="cinemaModel.HomeLayoutModule" Width="1.5" PointX="2.125" PointY="3" />
         <EntityTypeShape EntityType="cinemaModel.SliderResimleri" Width="1.5" PointX="4" PointY="3.125" />
+        <EntityTypeShape EntityType="cinemaModel.SiteAyarlari" Width="1.5" PointX="5.625" PointY="3.125" />
+        <EntityTypeShape EntityType="cinemaModel.SeoOptimizasyonu" Width="1.5" PointX="7.125" PointY="3.125" />
+        <EntityTypeShape EntityType="cinemaModel.IletisimBilgileri" Width="1.5" PointX="0.5" PointY="4.25" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

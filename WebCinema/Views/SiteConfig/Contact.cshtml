@@ -1,0 +1,64 @@
+﻿@using WebCinema.Models
+@{
+    ViewBag.Title = "Site İletişim Bilgilerini Güncelleyin";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    string adres = "";
+    string tel1 = "";
+    string tel2 = "";
+    string tel3 = "";
+    string gsm1 = "";
+    string gsm2 = "";
+    string gsm3 = "";
+    string google_maps = "";
+    string fb = "";
+    string tw = "";
+    string ins = "";
+    foreach (IletisimBilgileri item in ViewBag.Contact)
+    {
+        adres = item.adres;
+        tel1 = item.tel1;
+        tel2 = item.tel2;
+        tel3 = item.tel3;
+        gsm1 = item.gsm1;
+        gsm2 = item.gsm2;
+        gsm3 = item.gsm3;
+        google_maps = item.google_maps;
+        fb = item.facebook_adress;
+        tw = item.twitter_adress;
+        ins = item.instagram_adress;
+    }
+}
+<h3 style="color:#0094ff;">Site İletişim Bilgilerini Güncelleyin</h3>
+@if (ViewBag.State == "success")
+{
+    <div class="alert alert-success"><b>Başarılı!</b> İletişim Bilgileriniz Güncellendi...</div>
+}
+else if (ViewBag.State == "error")
+{
+    <div class="alert alert-error"><b>Hata!</b> Bir Hata Nedeniyle Bilgileriniz Güncellenemedi...</div>
+}
+@using (Html.BeginForm("Contact", "SiteConfig", FormMethod.Post))
+{
+    <label>Adres</label>
+    <textarea name="adres" cols="30" row="5" style="width:100%;">@adres</textarea>
+    <br />
+    <label>Telefon Numaraları</label>
+    <div><input type="text" name="tel1" style="width:120px;" placeholder="Birincil Numara" value="@tel1" /> - <input type="text" name="tel2" style="width:120px;" placeholder="2.Tel No" value="@tel2" /> - <input type="text" name="tel3" style="width:120px;" placeholder="3.Tel No" value="@tel3" /></div>
+    <label>GSM</label>
+    <div><input type="text" name="gsm1" style="width:120px;" placeholder="Birincil GSM Numara" value="@gsm1" /> - <input type="text" name="gsm2" style="width:120px;" placeholder="2.GSM No" value="@gsm2" /> - <input type="text" name="gsm3" style="width:120px;" placeholder="3.GSM No"  value="@gsm3" /></div>
+    <br />
+    <label>Google Maps</label>
+    <textarea name="maps" cols="30" row="5" style="width:100%;">@google_maps</textarea>
+    <br />
+    <label>Facebook Adresiniz</label>
+    <input type="text" name="facebook_adress" value="@fb" />
+    <br />
+    <label>Twitter Adresiniz</label>
+    <input type="text" name="twitter_adress"  value="@tw" />
+    <br />
+    <label>Instagram Adresiniz</label>
+    <input type="text" name="instagram_adress"  value="@ins" />
+    <p align="right"><input type="submit" class="btn btn-primary" value="Güncelle" /></p>
+}

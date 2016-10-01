@@ -1,0 +1,46 @@
+﻿@model WebCinema.ViewModel.JsonResultModel
+@using WebCinema.Models
+@{
+    ViewBag.Title = "Site Ayarları";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    string title = "";
+    string description = "";
+    string slogan = "";
+    string keyword = "";
+    foreach (SiteAyarlari item in ViewBag.Config)
+    {
+        title = item.site_title;
+        description = item.site_description;
+        slogan = item.site_slogan;
+        keyword = item.site_keyword;
+    }
+}
+<h3 style="color:#0094ff;">Sitenizin Genel Ayarlarını Yapılandırın</h3>
+@using (Ajax.BeginForm("Index", "SiteConfig", FormMethod.Post, new AjaxOptions { OnSuccess="success" }))
+{
+    <label>Site Başlığı</label>
+    <input type="text" name="title" style="width:100%;" value="@title" />
+    <br />
+    <label>Site Açıklaması</label>
+    <textarea name="description" cols="60" rows="5" style="width:100%;">@description</textarea>
+    <br />
+    <label>Site Sloganı</label>
+    <input type="text" name="slogan" style="width:100%;"  value="@slogan" />
+    <br />
+    <label>Anahtar Kelimeler</label>
+    <input type="text" name="keyword" style="width:100%;"  value="@keyword" />
+    <p align="right"><input type="submit" value="Güncelle" class="btn btn-primary" /></p>
+}
+@section scripts{
+    <script type="text/javascript">
+        function success(msg) {
+            if (msg.IsSuccess == true) {
+                alert("Site Bilgileri Güncellendi");
+            } else {
+                alert("Bir Hata Nedeniyle Site Bilgileri Güncellenemedi!");
+            }
+        }
+    </script>
+}
